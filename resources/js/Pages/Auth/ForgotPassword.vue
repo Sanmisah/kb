@@ -22,7 +22,7 @@ const submit = () => {
 </script>
 
 <template>
-        <div class="flex justify-center items-center min-h-screen bg-[url('/assets/images/map.svg')] dark:bg-[url('/assets/images/map-dark.svg')] bg-cover bg-center">
+        <div class="flex justify-center items-center min-h-screen bg-[url('/public/assets/images/map.svg')] dark:bg-[url('/assets/images/map-dark.svg')] bg-cover bg-center">
             <Head title="Forgot Password" />
             <div class="panel sm:w-[480px] m-6 max-w-lg w-full">
                 <p class="mb-7">

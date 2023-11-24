@@ -3,11 +3,10 @@ import { router } from "@inertiajs/vue3";
 import App from "@/Layouts/app-layout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
+import DateInput from "@/Components/DateInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
 
 defineProps({ errors: Object,  designations: Object, departments: Object, employees: Object });
 
@@ -27,10 +26,6 @@ const form = useForm({
     city: null,
     pincode: null,
     dob: null,
-});
-
-const basic = ref({
-    dateFormat: 'd/m/Y'
 });
 
 /*const selectedState = ref('Maharashtra');*/
@@ -128,33 +123,15 @@ function submit() {
                             :required="true"
                             :error="errors.last_name"
                             v-model="form.last_name"/>
-                        <br />
                     </div>
                     <div class="grid grid-cols-3 gap-4 mb-4">
-                       
-                            <TextInput type="text"  label="Contact No"  :required="true" v-model="form.contact_no" :error="errors.contact_no" />
-                          
-                        <div>
-                            <InputLabel value="Date Of Birth" />
-                            <flat-pickr class="form-input" :config="basic" v-model="form.dob"></flat-pickr>
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.dob">
-                                {{ errors.dob }}
-                            </div>
-                        </div>
-                        <div>
-                            <InputLabel value="Date Of Joining" />
-                            <flat-pickr class="form-input" :config="basic" v-model="form.date_of_joining"></flat-pickr>
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.date_of_joining">
-                                {{ errors.date_of_joining }}
-                            </div>
-                        </div>
+                        <TextInput type="text"  label="Contact No"  :required="true" v-model="form.contact_no" :error="errors.contact_no" />
+                        <DateInput label="Date Of Birth" v-model="form.dob" :error="errors.dob" />
+                        <DateInput label="Date Of Joining" v-model="form.date_of_joining" :error="errors.date_of_joining" />
                     </div>
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <SelectInput  label="Department"  :required="true" v-model="form.department_id" :data="departments" :error="errors.department_id" />
                         <SelectInput  label="Designation"  :required="true" v-model="form.designation_id" :data="designations" :error="errors.designation_id" />
-                      
                     </div>
                 </div>
                 <div class="panel">
@@ -165,7 +142,6 @@ function submit() {
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">                       
                         <TextInput type="text"  label="Address Line 1" :error="errors.address_line_1" v-model="form.address_line_1" />
-                        <br />
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">
                         <TextInput type="text"  label="Address Line 2" :error="errors.address_line_2" v-model="form.address_line_2" />

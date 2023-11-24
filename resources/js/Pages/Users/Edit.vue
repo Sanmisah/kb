@@ -2,6 +2,7 @@
 import App from "@/Layouts/app-layout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
+import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 const props = defineProps({ errors: Object, user: Object , roles: Object});
 console.log(props.user)
@@ -45,77 +46,10 @@ const form = useForm({
             <div class="mb-5">
                 <form class="space-y-5" @submit.prevent="form.patch(route('users.update', props.user.id))">
                     <div class="grid grid-cols-3 gap-4">
-                        <div>
-                            <InputLabel
-                                for="name"
-                                class="after:content-['*'] after:text-red-500"
-                                value="Name"
-                            />
-                            <TextInput
-                                id="name"
-                                type="text"
-                                class="form-input"
-                                v-model="form.name"
-                            />
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.name">
-                                {{ errors.name }}
-                            </div>
-                        </div>
-                        <div>
-                            <InputLabel
-                                for="email"
-                                class="after:content-['*'] after:text-red-500"
-                                value="Email"
-                            />
-                            <TextInput
-                                id="email"
-                                type="text"
-                                class="form-input"
-                                v-model="form.email"
-
-                            />
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.email">
-                                {{ errors.email }}
-                            </div>
-                        </div>
-                        <div>
-                            <InputLabel
-                                for="password"
-                                class="after:content-['*'] after:text-red-500"
-                                value="Password"
-                            />
-                            <TextInput
-                                id="password"
-                                type="password"
-                                class="form-input"
-                                v-model="form.password"
-                                
-                            />
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.password">
-                                {{ errors.password }}
-                            </div>
-                        </div>
-                        <div>
-                            <InputLabel
-                                for="role"
-                                class="after:content-['*'] after:text-red-500"
-                                value="Role"
-                            />
-                           
-                            <select class="form-select " v-model="form.role">
-                                  <option>Please Select</option>
-                                <template v-for="(role, id) in roles" :key="id">
-                                    <option :value="role" v-text="role"></option>
-                                </template>
-                            </select>
-                            
-                            <div class="mt-2 text-red-500" v-if="errors.role">
-                                {{ errors.role }}
-                            </div>
-                        </div>
+                        <TextInput type="text" label=" Name" :error="errors.name" :required="true" v-model="form.name"/>
+                        <TextInput type="text" label=" Email" :error="errors.email" :required="true" v-model="form.email"/>
+                        <TextInput type="password" label=" Password" :error="errors.password" :required="true" v-model="form.password"/>
+                        <SelectInput  label="Role" :required="true" v-model="form.role" :data="roles" :error="errors.role" />
                         <div>
                             <InputLabel
                                 for="active"

@@ -35,43 +35,9 @@ const submit = () => {
         <div class="panel sm:w-[480px] m-6 max-w-lg w-full">
             <h2 class="font-bold text-2xl mb-3">Password Reset</h2>
             <form class="space-y-5" @submit.prevent="submit">
-                <div>
-                    <InputLabel for="email" value="Email" />
-                    <TextInput
-                        id="email"
-                        type="email"
-                        class="form-input"
-                        v-model="form.email"
-                        required
-                        autofocus
-                        autocomplete="username"
-                    />
-                    <InputError class="mt-2" :message="form.errors.email" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel for="password" value="Password" />
-                    <TextInput
-                        id="password"
-                        type="password"
-                        class="form-input"
-                        v-model="form.password"
-                        required
-                        autocomplete="new-password"
-                    />
-                    <InputError class="mt-2" :message="form.errors.password" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel for="password_confirmation" value="Confirm Password" />
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        class="form-input"
-                        v-model="form.password_confirmation"
-                        required
-                        autocomplete="new-password"
-                    />
-                    <InputError class="mt-2" :message="form.errors.password_confirmation" />
-                </div>
+                <TextInput type="email" label="Email" :error="form.errors.email" v-model="form.email"/>
+                <TextInput type="password" label="Password" :error="form.errors.password" v-model="form.password"/>
+                <TextInput type="password" label="Confirm Password" :error="form.errors.password_confirmation" v-model="form.password_confirmation"/>
                 <button type="submit" class="btn btn-primary w-full">RECOVER</button>
             </form>
         </div>

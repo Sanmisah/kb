@@ -35,28 +35,11 @@ const submit = () => {
             <p class="mb-7">Enter your email and password to login</p>
             <form class="space-y-5" @submit.prevent="submit">
                 <div>
-                    <InputLabel for="email" value="Email" />
-                    <TextInput
-                        id="email"
-                        type="email"
-                        class="form-input"
-                        v-model="form.email"
-                        required
-                        autofocus
-                        autocomplete="username"/>
-                    <InputError class="mt-2" :message="form.errors.email" />
+                    <TextInput type="text" label="Email" :error="form.errors.email" v-model="form.email"/>
                 </div>
 
                 <div>
-                    <InputLabel for="password" value="Password" />
-                    <TextInput
-                        id="password"
-                        type="password"
-                        class="form-input"
-                        v-model="form.password"
-                        required
-                        autocomplete="current-password"/>
-                    <InputError class="mt-2" :message="form.errors.password" />
+                    <TextInput type="password" label="Password" :error="form.errors.password" v-model="form.password"/>
                 </div>
 
                 

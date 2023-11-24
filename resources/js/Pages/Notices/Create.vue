@@ -3,10 +3,11 @@ import { router } from "@inertiajs/vue3";
 import App from "@/Layouts/app-layout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
+import DateInput from "@/Components/DateInput.vue";
+import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
+
 
 defineProps({ errors: Object, departments: Object, designations: Object});
 
@@ -49,89 +50,28 @@ function submit() {
                         </h5>
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
-                        <div>
-                            <InputLabel
-                                value="Serial No"
-                            />
-                            <TextInput
-                                type="text"
-                                class="form-input bg-gray-100 dark:bg-gray-700"
-                                v-model="form.sr_no"/>
-                        </div>
-                        <div>
-                            <InputLabel class="after:content-['*'] after:text-red-500" value="Notice Date" />
-                            <flat-pickr class="form-input" :config="basic" v-model="form.notice_date"></flat-pickr>
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.notice_date">
-                                {{ errors.notice_date }}
-                            </div>
-                        </div>
-                        <div>
-                            <InputLabel
-                                class="after:content-['*'] after:text-red-500"
-                                value="Department"
-                            />
-                            <select class="form-select" v-model="form.department_id">
-                                <template v-for="(department, id) in departments" :key="id">
-                                    <option :value="id" v-text="department"></option>
-                                </template>
-                            </select>                            
-                            <div class="mt-2 text-red-500" v-if="errors.department_id">
-                                {{ errors.department_id }}
-                            </div>
-                        </div>
-                        <div>
-                            <InputLabel
-                                class="after:content-['*'] after:text-red-500"
-                                value="Designation"
-                            />
-                            <select class="form-select" v-model="form.designation_id">
-                                <template v-for="(designation, id) in designations" :key="id">
-                                    <option :value="id" v-text="designation"></option>
-                                </template>
-                            </select>                            
-                            <div class="mt-2 text-red-500" v-if="errors.designation_id">
-                                {{ errors.designation_id }}
-                            </div>
-                        </div>
+                        <!--class="form-input bg-gray-100 dark:bg-gray-700"-->                        
+                        <TextInput type="text" label="Serial No" v-model="form.sr_no" readonly />
+                        <DateInput label="Notice Date" v-model="form.notice_date" :error="errors.notice_date" />
+                        <SelectInput  label="Department"  :required="true" v-model="form.department_id" :data="departments" :error="errors.department_id" />
+                        <SelectInput  label="Designation"  :required="true" v-model="form.designation_id" :data="designations" :error="errors.designation_id" />                        
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">
-                        <div>
-                            <InputLabel
-                                class="after:content-['*'] after:text-red-500"
-                                value="Notice"
-                            />
-                            <TextInput
-                                type="text"
-                                class="form-input"
-                                v-model="form.notice"/>
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.notice">
-                                {{ errors.notice }}
-                            </div>
-                        </div>
+                        <TextInput type="text" label="Notice" :error="errors.notice" :required="true" v-model="form.notice"/>
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">
-                        <div>
-                            <InputLabel class="after:content-['*'] after:text-red-500" value="Description" />
-                            <TextInput
-                                type="text"
-                                class="form-input"
-                                v-model="form.description"/>
-                                <div class="mt-2 text-red-500" v-if="errors.description">
-                                    {{ errors.description }}
-                                </div>
-                        </div>
+                        <TextInput type="text" label="Description" :error="errors.description" :required="true" v-model="form.description"/>
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
+                        <!--<TextInput type="file" label="Attachment"  @input="form.attachment = $event.target.files[0]"  accept="application/pdf" :error="errors.attachment" :required="true" v-model="form.attachment"/>-->
+
                         <div>
                             <InputLabel class="after:content-['*'] after:text-red-500" value="Attachment" />
                             <input type="file" class="form-input"  @input="form.attachment = $event.target.files[0]"  accept="application/pdf"/>
                             <div class="mt-2 text-red-500" v-if="errors.attachment">
                                 {{ errors.attachment }}
                             </div>
-                        </div> 
-                        
+                        </div>                         
                     </div>
                     <div class="flex justify-end mt-4">
                       <button type="submit" class="btn btn-success">Submit</button

@@ -44,18 +44,7 @@ function submit() {
                         </h5>
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
-                        <div>
-                            <InputLabel
-                                class="after:content-['*'] after:text-red-500"
-                                value="Name"
-                            />
-                            <TextInput
-                                type="text"
-                                class="form-input"
-                                v-model="form.department_name"/>
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.department_name">{{ errors.department_name }}</div>
-                        </div>
+                        <TextInput type="text" label="Name" :error="errors.department_name" :required="true" v-model="form.department_name"/>
                     </div>
                     <div class="flex justify-end mt-4">
                       <button type="submit" class="btn btn-success">Submit</button

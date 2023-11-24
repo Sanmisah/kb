@@ -45,21 +45,10 @@ function submit() {
                 <form class="space-y-5" @submit.prevent="submit">
                     <div class="grid grid-cols-6 gap-4">
                         <div class="col-start-1 col-end-3">
-                            <InputLabel for="name" value="Name" class="after:content-['*'] after:text-red-500" />
-                            <TextInput id="name" type="text" class="form-input" v-model="form.name" />
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.name">
-                                {{ errors.name }}
-                            </div>
+                            <TextInput type="text" label="Name" :error="errors.name" :required="true" v-model="form.name"/>
                         </div>
                         <div class="col-start-3 col-end-6">
-                            <InputLabel for="guard_name" value="Gaurd Name"
-                                class="after:content-['*'] after:text-red-500" />
-                            <TextInput id="guard-name" type="text" class="form-input" v-model="form.guard_name" />
-                            <br />
-                            <div class="mt-2 text-red-500" v-if="errors.guard_name">
-                                {{ errors.guard_name }}
-                            </div>
+                            <TextInput type="text" label="Gaurd Name" :error="errors.guard_name" :required="true" v-model="form.guard_name"/>
                         </div>
                         <div class="col-start-1 col-end-7">
                             <ul >

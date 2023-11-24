@@ -25,15 +25,7 @@ const form = useForm({
                   <h5 class="font-semibold text-lg dark:text-white-light">Edit Designations</h5>
                 </div>
                 <div class="grid grid-cols-4 gap-4 mb-4">
-                    <div>
-                    <InputLabel class="after:content-['*'] after:text-red-500" value="Name" />
-                    <TextInput
-                        type="text"
-                        class="form-input"
-                        v-model="form.designation_name"/>
-                    <br>
-                    <div class="mt-2 text-red-500" v-if="errors.designation_name">{{ errors.designation_name }}</div>
-                    </div>
+                    <TextInput type="text" label="Name" :error="errors.designation_name" :required="true" v-model="form.designation_name"/>
                 </div>
                 <div class="flex justify-end mt-4">
                     <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;

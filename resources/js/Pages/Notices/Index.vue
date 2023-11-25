@@ -84,7 +84,7 @@ watch(search, (value) => {
               <td>{{ notice.notice_date }}</td>
               <td>{{ notice.notice }}</td>
               <td>{{ notice.department }}</td>
-              <td>{{ notice.department }}</td>
+              <td>{{ notice.designation }}</td>
               <!-- <td v-for="(value, key) in $page.props.auth.can" > <span > {{  key }}</span>  </td> -->
               <!-- <td v-for="role in  $page.props.auth.user.roles ">  {{  role.name }} </td> -->
               <td style="float: right;">

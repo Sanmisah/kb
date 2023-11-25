@@ -27,18 +27,6 @@ const input = ref(null);
 
 
 
-onMounted(() => {
-    if (input.value.hasAttribute('autofocus')) {
-        input.value.focus();
-    }
-
-    if (input.value.hasAttribute('select')) {
-        input.value.select();
-    }
-   
-});
-
-defineExpose({ focus: () => input.value.focus(), select: () => input.value.select()});
 </script>
 
 <template>

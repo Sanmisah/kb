@@ -45,7 +45,7 @@ defineExpose({ focus: () => input.value.focus()});
             <span v-else><slot /></span>
             <span v-if="required" class="text-red-500"> *</span>
         </label>
-        <input
+        <input :type="type"
             class="form-input border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"

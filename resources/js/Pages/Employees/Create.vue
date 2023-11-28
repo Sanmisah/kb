@@ -150,7 +150,7 @@ function submit() {
                         <TextInput type="text"  label="Country" :error="errors.country" v-model="form.country" />
                         <TextInput type="text"  label="State" :error="errors.state" v-model="form.state" />
                         <TextInput type="text"  label="City" :error="errors.city" v-model="form.city" />
-                                                             
+                        <TextInput type="text"  label="Pincode" :error="errors.pincode" v-model="form.pincode" />                             
                     </div> 
                 </div>
                 <div class="panel">

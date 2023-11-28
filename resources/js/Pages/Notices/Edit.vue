@@ -21,6 +21,7 @@ const form = useForm({
     department_id: props.notice.department_id,
     designation_id: props.notice.designation_id,
     description: props.notice.description,
+    attachment: props.notice.attachment,
 });
 
 </script>
@@ -33,7 +34,7 @@ const form = useForm({
         </ul>
         <br>
         <div class="pt-5">
-            <form class="space-y-5" @submit.prevent="form.patch(route('notices.update', props.notice.id))">
+            <form class="space-y-5" method="post" enctype="multipart/form-data"  @submit.prevent="form.patch(route('notices.update', props.notice.id))">
                 <div class="panel">
                     <div class="flex items-center justify-between mb-5">
                         <h5 class="font-semibold text-lg dark:text-white-light">Edit Notices</h5>
@@ -53,16 +54,14 @@ const form = useForm({
                     <div class="grid grid-cols-4 gap-4 mb-4">
                         <div>
                             <InputLabel class="after:content-['*'] after:text-red-500" value="Attachment" />
-                            <input type="file" class="form-input" name="attachment"/>
+                            <input type="file" class="form-input"  @input="form.attachment = $event.target.files[0]"  accept="application/pdf"/>
                             <div class="mt-2 text-red-500" v-if="errors.attachment">
                                 {{ errors.attachment }}
                             </div>
-                        </div>
+                        </div> 
                         <div>
-                           
-                            <a v-if="mediaItems" :href="'/media/'+ mediaItems.id +'/'+ mediaItems.file_name" class="badge bg-info" target="_blank">{{ mediaItems.file_name }} </a>
-                            
-                        </div>
+                            <a v-if="mediaItems" :href="'/media/'+ mediaItems.id +'/'+ mediaItems.file_name" class="btn btn-info badge bg-info" target="_blank">{{ mediaItems.file_name }} </a>  
+                        </div>  
                     </div>
                     <div class="flex justify-end mt-4">
                         <button type="submit" class="btn btn-success">Submit</button

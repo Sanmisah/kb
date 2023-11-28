@@ -6,22 +6,28 @@ import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 
-const props = defineProps({ errors: Object, role: Object, permissions: Object })
+const props = defineProps({ errors: Object, role: Object, permissions: Object, rolePermissions: Object })
 
 const form = useForm({
     name: props.role.name,
     guard_name: props.role.guard_name,
     permissions :[],
 })
+ 
+/*function isChecked(){
+    console.log('hi');
+    if(form.permissions.id === rolePermissions){ 
+        console.log('true')
+        return 'checked'
+    }else{
+        console.log('false')
+        return ''
+    }
+}*/
 
 function submit() {
    form.patch(route('roles.update', props.role.id));
 }
-
-
-
-
-
 </script>
 
 <template>
@@ -52,22 +58,18 @@ function submit() {
                             <ul >
                                 <li style="width:19%;display: inline-block;">
                                     <input type="checkbox" class="form-checkbox text-success myCheck"
-                                        v-model="form.permissions" :value="All" :id="all" :name="all" />
+                                        v-model="form.permissions" v-bind:value="All" v-bind:id="all" v-bind:name="all" />
                                         All 
                                 </li>
                                 <li v-for="permission in permissions" :key="permission.id" style="width:19%;display: inline-block;">
-                                    <input type="checkbox" class="form-checkbox text-success myCheck"
-                                        v-model="form.permissions" :value="permission.name" :id="permission.name" :name="permission.name" />
+                                    <input type="checkbox" class="form-checkbox text-success permission"
+                                        v-model="form.permissions"
+ v-bind:id="permission.name" v-bind:value="permission.name" :name="permission.name" />
                                         {{  permission.name  }}
-
+                                        
                                 </li>
-                               
-
                             </ul>
-
-
                         </div>
-
                     </div>
                     <div class="flex justify-end mt-4">
                         <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;

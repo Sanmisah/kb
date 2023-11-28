@@ -69,6 +69,7 @@ watch(search, (value) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Department</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
               </thead>
@@ -76,6 +77,7 @@ watch(search, (value) => {
                 <tr>
                   <td>{{ index+1 }}</td>
                   <td>{{ section.section_name }}</td>
+                  <td>{{ section.department_name }}</td>
                   <td style="float: right;">
                     <div class="flex gap-4">
                       <Link :href="'/sections/' + section.id +'/edit'" method="get" v-tippy:edit>
@@ -98,7 +100,7 @@ watch(search, (value) => {
                               <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                           </svg>
                       </Link>
-                      <tippy>Delete</tippy>
+                      <tippy target="delete">Delete</tippy>
                     </div>
                   </td>
                 </tr>       

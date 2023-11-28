@@ -83,14 +83,18 @@ class NoticesController extends Controller
 
     public function update(Notice $notice, Request $request)
     {
+        
         Request::validate([
             'notice_date' => 'required',
             'notice' => 'required',
             'department_id' => 'required',
             'designation_id' => 'required',
-            'description' => 'required',    
+            'description' => 'required',
         ]);
         $notice->update(Request::all());  
+        if(Request::hasFile('attachment') && Request::file('attachment')->isValid()){
+            $notice->addMediaFromRequest('attachment')->toMediaCollection('attachment');
+        }
         return to_route('notices.index');
     }
 

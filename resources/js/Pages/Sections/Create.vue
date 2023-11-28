@@ -1,17 +1,16 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import App from "@/Layouts/app-layout.vue";
-import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Link, useForm, usePage } from "@inertiajs/vue3";
-import { ref, onMounted } from "vue";
-import { useAppStore } from "@/stores/index";
+import SelectInput from "@/Components/SelectInput.vue";
+import { Link, useForm} from "@inertiajs/vue3";
 
-defineProps({ errors: Object,  sections: Object });
+defineProps({ errors: Object, sections: Object, departments: Object });
 
 const form = useForm({
     section_name: null,
+    department_id: null,
 });
 
 function submit() {
@@ -43,6 +42,7 @@ function submit() {
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
                         <TextInput type="text" label="Name" :error="errors.section_name" :required="true" v-model="form.section_name"/>
+                        <SelectInput label="Department" :required="true" v-model="form.department_id" :data="departments" :error="errors.department_id" />
                     </div>
                     <div class="flex justify-end mt-4">
                       <button type="submit" class="btn btn-success">Submit</button

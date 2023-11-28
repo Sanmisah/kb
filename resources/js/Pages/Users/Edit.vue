@@ -4,8 +4,8 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
-const props = defineProps({ errors: Object, user: Object , roles: Object});
-console.log(props.user)
+const props = defineProps({ errors: Object, user: Object , roles: Object, userRole: Object});
+console.log(props.userRole)
 
 
 
@@ -14,7 +14,7 @@ const form = useForm({
     email: props.user.email,
     password: null,
     active: props.user.active,
-    role: props.user.role,
+    role: props.userRole,
 });
 
 
@@ -49,7 +49,27 @@ const form = useForm({
                         <TextInput type="text" label=" Name" :error="errors.name" :required="true" v-model="form.name"/>
                         <TextInput type="text" label=" Email" :error="errors.email" :required="true" v-model="form.email"/>
                         <TextInput type="password" label=" Password" :error="errors.password" :required="true" v-model="form.password"/>
-                        <SelectInput  label="Role" :required="true" v-model="form.role" :data="roles" :error="errors.role" />
+                        <!--<SelectInput  label="Role" :required="true" v-model="form.role" :data="roles" :error="errors.role" />-->
+                        <div>
+                            <InputLabel
+                                for="role"
+                                class="after:content-['*'] after:text-red-500"
+                                value="Role"
+                            />
+                           
+                            <select class="form-select " v-model="form.role">
+                                  <option>Please Select</option>
+                                <template v-for="(role, id) in roles" :key="id" >
+                                    <option :value="role">
+                                        {{ role }}
+                                    </option>
+                                </template>
+                            </select>
+                            
+                            <div class="mt-2 text-red-500" v-if="errors.role">
+                                {{ errors.role }}
+                            </div>
+                        </div>
                         <div>
                             <InputLabel
                                 for="active"

@@ -9,6 +9,7 @@ use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\ArticlesController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'permission'])->group(function () {
     // Route::mediaLibrary();
     Route::resource('sections', SectionsController::class);
     Route::resource('employees',EmployeesController::class);
+    Route::resource('articles', ArticlesController::class);
 });
 
 require __DIR__.'/auth.php';

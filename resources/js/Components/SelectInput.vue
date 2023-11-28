@@ -36,7 +36,8 @@ const input = ref(null);
             <span v-else><slot /></span>
             <span v-if="required" class="text-red-500"> *</span>
         </label>
-        <select class="form-select" :value="modelValue">
+        <select class="form-select" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
+            ref="input">
             <template v-for="(recored, id) in data" :key="id">
                 <option :value="id" v-text="recored"></option>
             </template>

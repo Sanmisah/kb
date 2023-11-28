@@ -63,8 +63,6 @@ function submit() {
                         <TextInput type="text" label="Description" :error="errors.description" :required="true" v-model="form.description"/>
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
-                        <!--<TextInput type="file" label="Attachment"  @input="form.attachment = $event.target.files[0]"  accept="application/pdf" :error="errors.attachment" :required="true" v-model="form.attachment"/>-->
-
                         <div>
                             <InputLabel class="after:content-['*'] after:text-red-500" value="Attachment" />
                             <input type="file" class="form-input"  @input="form.attachment = $event.target.files[0]"  accept="application/pdf"/>

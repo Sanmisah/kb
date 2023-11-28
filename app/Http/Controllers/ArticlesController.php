@@ -47,7 +47,6 @@ class ArticlesController extends Controller
         Request::validate([
             'topic' => 'required',
             'section_id' => 'required',
-            'video_attachment' =>'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|max:100040'
         ]);       
         $article = Article::create($input);
         // if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
@@ -90,23 +89,26 @@ class ArticlesController extends Controller
     }
 
     public function update(Article $article)
-    {        
+    {       
         Request::validate([
             'section_id' => 'required',
             'topic' => 'required'
         ]);
         $article->fill(Request::all()); 
         $article->update(); 
-        if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
-            $article->addMediaFromRequest('video_attachment')->toMediaCollection('video_attachment');
-        } 
+        // if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
+        //     $article->addMediaFromRequest('video_attachment')->toMediaCollection('video_attachment');
+        // } 
         if(Request::hasFile('file_attachment_1') && Request::file('file_attachment_1')->isValid()){
+            $article->clearMediaCollection('file_attachment_1');
             $article->addMediaFromRequest('file_attachment_1')->toMediaCollection('file_attachment_1');
         } 
         if(Request::hasFile('file_attachment_2') && Request::file('file_attachment_2')->isValid()){
+            $article->clearMediaCollection('file_attachment_2');
             $article->addMediaFromRequest('file_attachment_2')->toMediaCollection('file_attachment_2');
         }  
         if(Request::hasFile('file_attachment_3') && Request::file('file_attachment_3')->isValid()){
+            $article->clearMediaCollection('file_attachment_3');
             $article->addMediaFromRequest('file_attachment_3')->toMediaCollection('file_attachment_3');
         }   
         return to_route('articles.index');

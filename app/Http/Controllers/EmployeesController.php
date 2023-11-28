@@ -31,8 +31,8 @@ class EmployeesController extends Controller
                     'last_name' => $employee->last_name,
                     'email' => $employee->email,
                     'contact_no' => $employee->contact_no,
-                    'designation_name' => $employee->designation->designation_name,
-                    'department_name' => $employee->department->department_name,
+                    'designation_name' => @$employee->designation->designation_name,
+                    'department_name' => @$employee->department->department_name,
                     'canEdit' => Auth::user()->can('employees.edit', $employee),
                     'delete' => Auth::user()->can('employees.destroy', $employee)
                 ]),

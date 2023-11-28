@@ -34,7 +34,7 @@ const form = useForm({
         </ul>
         <br>
         <div class="pt-5">
-            <form class="space-y-5" method="post" enctype="multipart/form-data"  @submit.prevent="form.patch(route('notices.update', props.notice.id))">
+            <form class="space-y-5"  enctype="multipart/form-data"  @submit.prevent="form.post(route('notices.update', props.notice.id))">
                 <div class="panel">
                     <div class="flex items-center justify-between mb-5">
                         <h5 class="font-semibold text-lg dark:text-white-light">Edit Notices</h5>

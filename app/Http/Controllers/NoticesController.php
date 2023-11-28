@@ -28,8 +28,8 @@ class NoticesController extends Controller
                     'sr_no' => $notice->sr_no,
                     'notice_date' => $notice->notice_date,
                     'notice' => $notice->notice,
-                    'department' => $notice->department->department_name,
-                    'designation' => $notice->designation->designation_name,
+                    'department' => @$notice->department->department_name,
+                    'designation' => @$notice->designation->designation_name,
                     'attachment' => $notice->attachment,
                     'description' => $notice->description,
                     'canEdit' => Auth::user()->can('notices.edit', $notice),
@@ -60,9 +60,6 @@ class NoticesController extends Controller
         if(Request::hasFile('attachment') && Request::file('attachment')->isValid()){
             $notice->addMediaFromRequest('attachment')->toMediaCollection('attachment');
         }
-        // if($request->hasFile('quotation') && $request->file('quotation')->isValid()){
-        //     $followup->addMediaFromRequest('quotation')->toMediaCollection('quotation');
-        // }   
 
         return to_route('notices.index');
     }
@@ -72,7 +69,6 @@ class NoticesController extends Controller
         $departments = Department::pluck('department_name', 'id');        
         $designations = Designation::pluck('designation_name', 'id');   
         $mediaItems = $notice->getFirstMedia('attachment');  
-        // dd($mediaItems);           
         return Inertia::render('Notices/Edit', [
             'notice' => $notice,
             'departments' => $departments,
@@ -93,6 +89,7 @@ class NoticesController extends Controller
         ]);
         $notice->update(Request::all());  
         if(Request::hasFile('attachment') && Request::file('attachment')->isValid()){
+            $notice->clearMediaCollection('attachment');
             $notice->addMediaFromRequest('attachment')->toMediaCollection('attachment');
         }
         return to_route('notices.index');

@@ -24,7 +24,7 @@ class SectionsController extends Controller
                 ->through(fn ($section) => [
                     'id' => $section->id,
                     'section_name' => $section->section_name,
-                    'department_name' => $section->department->department_name,
+                    'department_name' => @$section->department->department_name,
                     'canEdit' => Auth::user()->can('sections.edit', $section),
                     'delete' => Auth::user()->can('sections.destroy', $section)
                 ]),

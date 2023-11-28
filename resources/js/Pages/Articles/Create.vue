@@ -73,21 +73,21 @@ function submit() {
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
                             <InputLabel value="File 1" />
-                            <input type="file" class="form-input"  @input="form.file_attachment_1 = $event.target.files[0]"  accept="application/pdf"/>
+                            <input type="file" class="form-input"  @input="form.file_attachment_1 = $event.target.files[0]"/>
                             <div class="mt-2 text-red-500" v-if="errors.file_attachment_1">
                                 {{ errors.file_attachment_1 }}
                             </div>
                         </div> 
                         <div>
                             <InputLabel value="File 2" />
-                            <input type="file" class="form-input"  @input="form.file_attachment_2 = $event.target.files[0]"  accept="application/pdf"/>
+                            <input type="file" class="form-input"  @input="form.file_attachment_2 = $event.target.files[0]"/>
                             <div class="mt-2 text-red-500" v-if="errors.file_attachment_2">
                                 {{ errors.file_attachment_2 }}
                             </div>
                         </div>  
                         <div>
                             <InputLabel value="File 3" />
-                            <input type="file" class="form-input"  @input="form.file_attachment_3 = $event.target.files[0]"  accept="application/pdf"/>
+                            <input type="file" class="form-input"  @input="form.file_attachment_3 = $event.target.files[0]"/>
                             <div class="mt-2 text-red-500" v-if="errors.file_attachment_3">
                                 {{ errors.file_attachment_3 }}
                             </div>

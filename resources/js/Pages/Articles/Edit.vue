@@ -13,10 +13,10 @@ const form = useForm({
     section_id: props.article.section_id,
     topic: props.article.topic,
     description: props.article.description,
-    video_attachment: props.article.video,
-    file_attachment_1: props.article.file_1,
-    file_attachment_2: props.article.file_2,
-    file_attachment_3: props.article.file_3,
+    video_attachment: null,
+    file_attachment_1: null,
+    file_attachment_2: null,
+    file_attachment_3: null,
 });
 
 </script>
@@ -28,7 +28,7 @@ const form = useForm({
             </li>
         </ul>
         <div class="pt-5">
-            <form class="space-y-5" method="post" enctype="multipart/form-data"  @submit.prevent="form.patch(route('articles.update', props.article.id))">
+            <form class="space-y-5" enctype="multipart/form-data"  @submit.prevent="form.post(route('articles.update', props.article))">
                 <div class="panel">
                     <div class="flex items-center justify-between mb-5">
                         <h5 class="font-semibold text-lg dark:text-white-light">Edit Section</h5>

@@ -1,5 +1,4 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import App from '@/Layouts/app-layout.vue';
 import { Head } from '@inertiajs/vue3';
 </script>

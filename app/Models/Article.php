@@ -28,6 +28,7 @@ class Article extends Model implements HasMedia
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
                 $query->where('topic', 'like', '%'.$search.'%')
+                      ->orWhere('description', 'like', '%'.$search.'%')
                       ->orWhereRelation('Section', 'section_name', 'like', '%'.$search.'%');
             });
         });

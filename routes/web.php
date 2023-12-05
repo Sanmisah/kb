@@ -10,6 +10,7 @@ use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\EmployeeDashboardController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,9 @@ Route::get('/dashboard', function () {
 Route::get('/employee_dashboard', function () {
     return Inertia::render('Employee-Dashboard');
 })->middleware(['auth', 'verified'])->name('employee_dashboard');
+Route::resource('employee_dashboard', EmployeeDashboardController::class);
+Route::get('/article', [EmployeeDashboardController::class, 'show'])->name('article');
+Route::get('/article-detail/{article}', [EmployeeDashboardController::class, 'edit'])->name('article-detail');
 
 Route::middleware(['auth', 'permission'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

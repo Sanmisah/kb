@@ -47,11 +47,12 @@ class ArticlesController extends Controller
         Request::validate([
             'topic' => 'required',
             'section_id' => 'required',
+            'video_attachment' => 'mimes:mp4|max:10000'
         ]);       
         $article = Article::create($input);
-        // if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
-        //     $article->addMediaFromRequest('video_attachment')->toMediaCollection('video_attachment');
-        // }
+        if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
+            $article->addMediaFromRequest('video_attachment')->toMediaCollection('video_attachment');
+        }
         if(Request::hasFile('file_attachment_1') && Request::file('file_attachment_1')->isValid()){
             $article->addMediaFromRequest('file_attachment_1')->toMediaCollection('file_attachment_1');
         }   
@@ -92,13 +93,14 @@ class ArticlesController extends Controller
     {       
         Request::validate([
             'section_id' => 'required',
-            'topic' => 'required'
+            'topic' => 'required',
+            'video_attachment' => 'mimes:mp4|max:10000'
         ]);
         $article->fill(Request::all()); 
         $article->update(); 
-        // if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
-        //     $article->addMediaFromRequest('video_attachment')->toMediaCollection('video_attachment');
-        // } 
+        if(Request::hasFile('video_attachment') && Request::file('video_attachment')->isValid()){
+            $article->addMediaFromRequest('video_attachment')->toMediaCollection('video_attachment');
+        } 
         if(Request::hasFile('file_attachment_1') && Request::file('file_attachment_1')->isValid()){
             $article->clearMediaCollection('file_attachment_1');
             $article->addMediaFromRequest('file_attachment_1')->toMediaCollection('file_attachment_1');

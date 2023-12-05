@@ -45,8 +45,9 @@ const form = useForm({
                     <div class="grid grid-cols-4 gap-4 mb-4">
                         <div>
                             <InputLabel value="Video" />
-                            <input type="file" class="form-input"  @input="form.video_attachment = $event.target.files[0]" />
+                            <input type="file" class="form-input"  @input="form.video_attachment = $event.target.files[0]"/>
                             <br />
+                            <span class="text-danger">{{ errors.video_attachment }}</span>
                             <a v-if="video" :href="'/media/'+ video.id +'/'+ video.file_name" class="btn btn-info badge bg-info" target="_blank">{{ video.file_name }} </a> 
                         </div>                         
                     </div>

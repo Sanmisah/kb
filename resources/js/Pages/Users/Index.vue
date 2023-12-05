@@ -51,6 +51,7 @@ const deleteUser = () => {
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Status</th>
                             <th style="text-align: right">Action</th>
                         </tr>
@@ -60,7 +61,8 @@ const deleteUser = () => {
                             <td>{{ index+1 }}</td>
                             <td align="right">{{ user.name }}</td>
                             <td align="right">{{ user.email }}</td>
-
+                            <td> {{ user.role}}
+                            </td>
                             <td align="right">
                                 <span
                                     v-if="user.active"

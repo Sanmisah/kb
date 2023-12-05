@@ -60,7 +60,16 @@ function submit() {
                         <TextInput type="text" label="Notice" :error="errors.notice" :required="true" v-model="form.notice"/>
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">
-                        <TextInput type="text" label="Description" :error="errors.description" :required="true" v-model="form.description"/>
+                        <!--<TextInput type="text" label="Description" :error="errors.description" :required="true" v-model="form.description"/>-->
+                        <div class="mb-5">
+                            <label for="desc">Description</label>
+                            <textarea
+                                id="desc"
+                                rows="3"
+                                class="form-textarea resize-none min-h-[130px]"
+                                v-model="form.description"
+                            ></textarea>
+                        </div>
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
                         <div>

@@ -16,10 +16,11 @@ class EmployeesController extends Controller
 {
     public function index()
     {
+        // dd(Employee::with(['Department', 'Designation', 'Users'])->get());
         return Inertia::render('Employees/Index', [
             'filters' => Request::all('search'),
             'can' => Auth::user()->can('employees.create'),
-            'employees' => Employee::with(['Department', 'Designation'])
+            'employees' => Employee::with(['Department', 'Designation', 'Users'])
                 ->filter(Request::only('search'))
                 ->orderBy('id', 'desc')
                 ->paginate(15)
@@ -33,6 +34,7 @@ class EmployeesController extends Controller
                     'contact_no' => $employee->contact_no,
                     'designation_name' => @$employee->designation->designation_name,
                     'department_name' => @$employee->department->department_name,
+                    'active' => @$employee->users->active,
                     'canEdit' => Auth::user()->can('employees.edit', $employee),
                     'delete' => Auth::user()->can('employees.destroy', $employee)
                 ]),

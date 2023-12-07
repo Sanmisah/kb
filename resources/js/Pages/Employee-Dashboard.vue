@@ -153,7 +153,7 @@ watch(search, (value) => {
                     </div>
                 </div>
                 <div>
-                    <div class="table-responsive grow overflow-y-auto min-h-[300px]">
+                    <!--<div class="table-responsive grow overflow-y-auto min-h-[300px]">-->
                         <table>
                             <tbody>
                                 <template v-for="(notice, index) in notices.data">
@@ -222,7 +222,7 @@ watch(search, (value) => {
                                 </template>
                             </tbody>
                         </table>
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
             <Pagination :data="notices" />

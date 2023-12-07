@@ -215,6 +215,8 @@
     const arrayFailed = Object.entries(permissions).map((arr) => ({
         fieldName: arr[0],
     }));
+    console.log(arrayFailed)
+
 
    
 </script>

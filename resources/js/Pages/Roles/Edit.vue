@@ -13,6 +13,14 @@ const form = useForm({
     guard_name: props.role.guard_name,
     permissions :[],
 })
+
+
+
+const arrayPermisions = Object.entries(props.rolePermissions).map((arr) => ({
+    permission: arr[1],
+    }));
+
+    console.log(arrayPermisions)
  
 /*function isChecked(){
     console.log('hi');
@@ -63,9 +71,9 @@ function submit() {
                                 </li>
                                 <li v-for="permission in permissions" :key="permission.id" style="width:19%;display: inline-block;">
                                     <input type="checkbox" class="form-checkbox text-success permission"
-                                        v-model="form.permissions"
- v-bind:id="permission.name" v-bind:value="permission.name" :name="permission.name" />
-                                        {{  permission.name  }}
+                                        v-model="form.permissions" v-bind:id="permission.name" v-bind:value="permission.name"
+                                         :name="permission.name"   />
+                                        {{  permission.name  }} <span v-if="arrayPermisions.some(data => data.permission == permission.name)">checked</span><span v-else>Not Checked</span>
                                         
                                 </li>
                             </ul>

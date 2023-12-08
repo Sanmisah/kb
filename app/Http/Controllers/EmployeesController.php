@@ -83,6 +83,11 @@ class EmployeesController extends Controller
         return to_route('employees.index');
     }
 
+    public function show(Employee $employee)
+    {
+        dd('hii');   
+    }
+
     public function edit(Employee $employee): Response
     {
         $departments = Department::pluck('department_name', 'id');

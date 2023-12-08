@@ -73,6 +73,7 @@ watch(search, (value) => {
                   <th>Contact No</th>
                   <th>Department</th>
                   <th>Designation</th>
+                  <th>Active</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
               </thead>
@@ -84,6 +85,10 @@ watch(search, (value) => {
                   <td>{{ employee.contact_no }}</td>
                   <td>{{ employee.department_name }}</td>
                   <td>{{ employee.designation_name }}</td>
+                  <td>
+                      <Link v-if="employee.active" v-model="active" class="badge badge-outline-success" @click="statusChanged()">Active</Link>
+                      <Link v-else v-model="inactive" class="badge badge-outline-danger">Deactive</Link>
+                  </td>
                   <td style="float: right;">
                     <div class="flex gap-4">
                       <Link :href="'/employees/' + employee.id +'/edit'" method="get" v-tippy:edit>

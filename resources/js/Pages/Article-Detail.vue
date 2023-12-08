@@ -70,8 +70,8 @@ th {
                         <button
                             type="button"
                             class="btn btn-outline-warning flex"
-                            :class="{ 'text-white bg-warning': selectedTab === 'work' }"
-                            @click="tabChanged('work')"
+                            :class="{ 'text-white bg-warning': selectedTab === 'article' }"
+                            @click="tabChanged('article')"
                         >
                             <svg
                                 width="24"
@@ -90,7 +90,7 @@ th {
                                 <path opacity="0.5" d="M16 13V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                             </svg>
 
-                            Work
+                            Article
                         </button>
                         </Link>
                         <button type="button"

@@ -118,6 +118,12 @@
                                     <li  v-if="arrayFailed.some(data => data.fieldName === 'articles.index')">
                                         <a href="/articles" @click="toggleMobileMenu">Articles</a>
                                     </li>
+                                    <li  v-if="arrayFailed.some(data => data.fieldName === 'inductions.index')">
+                                        <a href="/inductions" @click="toggleMobileMenu">Inductions</a>
+                                    </li>
+                                    <li  v-if="arrayFailed.some(data => data.fieldName === 'quiz.index')">
+                                        <a href="/quiz" @click="toggleMobileMenu">Quiz</a>
+                                    </li>
                                 </ul>
                             </vue-collapsible>
                         </li>

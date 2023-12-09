@@ -23,6 +23,7 @@ class EmployeeDashboardController extends Controller
                                 'notice_date' => $notice->notice_date,
                                 'notice' => $notice->notice,
                                 'description' => $notice->description]);
+        
         return Inertia::render('Employee-Dashboard',[
             'notices' => $notices,
         ]);

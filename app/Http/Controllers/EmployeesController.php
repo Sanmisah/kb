@@ -85,7 +85,18 @@ class EmployeesController extends Controller
 
     public function show(Employee $employee)
     {
-        dd('hii');   
+        $user = User::find($employee->id);
+        // dd($user);   
+        if ($user->active == 1){
+            $user->update([
+                'active' => '0',
+            ]);
+        }else{
+            $user->update([
+                'active' => '1',
+            ]);
+        }
+        return to_route('employees.index');
     }
 
     public function edit(Employee $employee): Response

@@ -1,5 +1,6 @@
 <template>
     <Employee>
+    <DLink></DLink>
     <div>
         <div class="flex gap-5 relative sm:h-[calc(100vh_-_150px)] h-full">
             <div
@@ -176,7 +177,7 @@
                                 <tbody>
                                     <template v-for="task in pagedTasks" :key="task.id">
                                         <tr class="group cursor-pointer" :class="{ 'bg-white-light/30 dark:bg-[#1a2941]': task.status === 'complete' }">
-                                            
+                                           <a :href="'/article-detail/' + task.id">
                                             <td>
                                                 <div @click="viewTask(task)">
                                                     <div
@@ -215,7 +216,8 @@
                                                 >
                                                     {{ task.date }}
                                                 </p>
-                                            </td>                                          
+                                            </td>         
+                                        </a>                                  
                                         </tr>
                                     </template>
                                 </tbody>
@@ -237,6 +239,7 @@
     import { ref, onMounted } from 'vue';
     import { useAppStore } from '@/stores/index';
     import Employee from '@/Layouts/EmployeeLayout.vue';
+    import DLink from '@/Components/DashboardLink.vue';
     const props = defineProps({
     filters: {
         type: Object,

@@ -72,7 +72,6 @@
     import Alert from '@/Components/Alert.vue';
     import Sidebar from '@/Components/layout/Sidebar.vue';
     import Footer from '@/Components/layout/Footer.vue';
-    import Setting from '@/Components/ThemeCustomizer.vue';
     import appSetting from '@/app-setting';
 
     import { useAppStore } from '@/stores/index';

@@ -16,7 +16,8 @@ import Maska from 'maska';
 import vue3JsonExcel from 'vue3-json-excel';
 import 'easymde/dist/easymde.min.css';
 import Popper from 'vue3-popper';
-
+import VuePlyr from 'vue-plyr';
+import 'vue-plyr/dist/vue-plyr.css';
 
 
 
@@ -42,6 +43,7 @@ createInertiaApp({
             .use(VueEasymde)
             .use(vue3JsonExcel)
             .use(ZiggyVue)
+            .use(VuePlyr)
             .component('Popper', Popper)
             .mount(el);
     },

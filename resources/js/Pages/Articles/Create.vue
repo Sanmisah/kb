@@ -5,7 +5,6 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm } from "@inertiajs/vue3";
-import { ref } from 'vue';
 /*import { quillEditor } from 'vue3-quill';
 import 'vue3-quill/lib/vue3-quill.css';
 const options1 = ref({

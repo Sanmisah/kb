@@ -1,3 +1,4 @@
+
 <script setup>
 import { ref } from 'vue'
 import App from '@/Layouts/app-layout.vue';
@@ -11,9 +12,17 @@ const props = defineProps({ errors: Object, role: Object, permissions: Object, r
 const form = useForm({
     name: props.role.name,
     guard_name: props.role.guard_name,
-    permissions :[],
+    permissions: [],
 })
- 
+
+
+
+const arrayPermisions = Object.entries(props.rolePermissions).map((arr) => ({
+    permission: arr[1],
+}));
+
+console.log(arrayPermisions)
+
 /*function isChecked(){
     console.log('hi');
     if(form.permissions.id === rolePermissions){ 
@@ -26,7 +35,7 @@ const form = useForm({
 }*/
 
 function submit() {
-   form.patch(route('roles.update', props.role.id));
+    form.patch(route('roles.update', props.role.id));
 }
 </script>
 
@@ -49,25 +58,30 @@ function submit() {
                 <form class="space-y-5" @submit.prevent="submit">
                     <div class="grid grid-cols-6 gap-4">
                         <div class="col-start-1 col-end-3">
-                            <TextInput type="text" label="Name" :error="errors.name" :required="true" v-model="form.name"/>
+                            <TextInput type="text" label="Name" :error="errors.name" :required="true" v-model="form.name" />
                         </div>
                         <div class="col-start-3 col-end-6">
-                            <TextInput type="text" label="Gaurd Name" :error="errors.guard_name" :required="true" v-model="form.guard_name"/>
+                            <TextInput type="text" label="Gaurd Name" :error="errors.guard_name" :required="true"
+                                v-model="form.guard_name" />
                         </div>
                         <div class="col-start-1 col-end-7">
-                            <ul >
+                            <ul>
                                 <li style="width:19%;display: inline-block;">
                                     <input type="checkbox" class="form-checkbox text-success myCheck"
                                         v-model="form.permissions" v-bind:value="All" v-bind:id="all" v-bind:name="all" />
-                                        All 
+                                    All
                                 </li>
-                                <li v-for="permission in permissions" :key="permission.id" style="width:19%;display: inline-block;">
-                                    <input type="checkbox" class="form-checkbox text-success permission"
-                                        v-model="form.permissions"
- v-bind:id="permission.name" v-bind:value="permission.name" :name="permission.name" />
-                                        {{  permission.name  }}
-                                        
+                                <li v-for="permission in permissions" :key="permission.id"
+                                    style="width:19%;display: inline-block;">
+
+
+                                    <input type="checkbox" v-model="form.permissions" v-bind:id="permission.name"
+                                        v-bind:value="permission.name" class="form-checkbox"
+                                        :checked="arrayPermisions.some(data => data.permission == permission.name)" /> {{
+                                            permission.name }}
+
                                 </li>
+                             
                             </ul>
                         </div>
                     </div>

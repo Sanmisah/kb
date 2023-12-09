@@ -90,9 +90,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $permissions = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();    
+        $rolePermissions = $role->permissions->pluck('name')->toArray();
         // dd($rolePermissions);
         return Inertia::render('Roles/Edit',compact('role','permissions','rolePermissions'));
     }

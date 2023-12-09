@@ -31,18 +31,8 @@ class EmployeeDashboardController extends Controller
     public function show()
     {
         $sections = Section::all();
-        $articles = Article::filter(Request::only('search'))
-                            ->with(['Section'])
-                            ->orderBy('id', 'desc')
-                            ->paginate(5)
-                            ->withQueryString()
-                            ->through(fn ($article) => [
-                                    'id' => $article->id,
-                                    'topic' => $article->topic,
-                                    'description' => $article->description,
-                                    'section_name' => $article->Section->section_name,
-                                    'created_at' => $article->created_at->format('d/m/Y')
-                                ]);       
+        $articles = Article::with(['Section'])
+                            ->orderBy('id', 'desc')->get();
         return Inertia::render('Article',[
             'articles' => $articles,
             'sections' => $sections

@@ -4,7 +4,6 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
 
 const props = defineProps({ sections: Object, errors: Object, article: Object, file_1: Object, file_2: Object, file_3: Object, video: Object});
 

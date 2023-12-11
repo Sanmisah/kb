@@ -278,7 +278,7 @@
     const allTasks = ref([]);
     props.articles.map(function (value) {
         allTasks.value.push({
-            id: 1,
+            id: value.id,
             description: value.description,
             descriptionText: value.description,
             title: value.topic,

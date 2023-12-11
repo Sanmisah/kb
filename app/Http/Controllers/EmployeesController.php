@@ -16,11 +16,12 @@ class EmployeesController extends Controller
 {
     public function index()
     {
-        // dd(Employee::with(['Department', 'Designation', 'Users'])->get());
+        
+        // dd(Employee::with(['Department', 'Designation', 'Users', 'UserLogins'])->get());
         return Inertia::render('Employees/Index', [
             'filters' => Request::all('search'),
             'can' => Auth::user()->can('employees.create'),
-            'employees' => Employee::with(['Department', 'Designation', 'Users'])
+            'employees' => Employee::with(['Department', 'Designation', 'Users', 'LastLogin'])
                 ->filter(Request::only('search'))
                 ->orderBy('id', 'desc')
                 ->paginate(15)
@@ -35,6 +36,7 @@ class EmployeesController extends Controller
                     'designation_name' => @$employee->designation->designation_name,
                     'department_name' => @$employee->department->department_name,
                     'active' => @$employee->users->active,
+                    'login' => @$employee->LastLogin,
                     'canEdit' => Auth::user()->can('employees.edit', $employee),
                     'delete' => Auth::user()->can('employees.destroy', $employee)
                 ]),
@@ -97,6 +99,15 @@ class EmployeesController extends Controller
             ]);
         }
         return to_route('employees.index');
+    }
+
+    public function log(Employee $employee)
+    {
+        $employee->load(['Department', 'Designation', 'Users', 'UserLogins']);
+        return Inertia::render('Employees/Log', [
+            'employee' => $employee,
+        ]);
+       
     }
 
     public function edit(Employee $employee): Response

@@ -73,6 +73,8 @@ watch(search, (value) => {
                   <th>Contact No</th>
                   <th>Department</th>
                   <th>Designation</th>
+                  <th>Last Login Time</th>
+                  <th>Last Logout Time</th>
                   <th>Active</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
@@ -85,13 +87,22 @@ watch(search, (value) => {
                   <td>{{ employee.contact_no }}</td>
                   <td>{{ employee.department_name }}</td>
                   <td>{{ employee.designation_name }}</td>
+                  <td>{{ employee.login ? employee.login.logged_in : ''}}</td>
+                  <td>{{ employee.login ? employee.login.logged_out : '' }}</td>
                   <td>
-                      <Link :href="'/employees/' + employee.id " v-if="employee.active" class="badge badge-outline-success" v-tippy:show>Active</Link>
-                      <Link :href="'/employees/' + employee.id " v-else class="badge badge-outline-danger" v-tippy:show>Inactive</Link>
-                      <tippy target="show">Show</tippy>
+                      <Link :href="'/employees/' + employee.id " v-if="employee.active" class="badge badge-outline-success" >Active</Link>
+                      <Link :href="'/employees/' + employee.id " v-else class="badge badge-outline-danger" >Inactive</Link>
                   </td>
                   <td style="float: right;">
                     <div class="flex gap-4">
+                      <Link :href="'/employees/' + employee.id +'/log'" method="get" v-tippy:show>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
+                          <path opacity="0.5" d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z" stroke="currentColor" stroke-width="1.5"></path>
+                          <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="1.5"></path>
+                      </svg>
+                            
+                    </Link>
+                    <tippy target="show">User Login Log</tippy>
                       <Link :href="'/employees/' + employee.id +'/edit'" method="get" v-tippy:edit>
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5">
                               <path

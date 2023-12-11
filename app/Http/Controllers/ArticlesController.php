@@ -94,7 +94,6 @@ class ArticlesController extends Controller
         Request::validate([
             'section_id' => 'required',
             'topic' => 'required',
-            'video_attachment' => 'mimes:mp4|max:10000'
         ]);
         $article->fill(Request::all()); 
         $article->update(); 

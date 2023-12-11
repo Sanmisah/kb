@@ -48,6 +48,7 @@ Route::resource('employee_dashboard', EmployeeDashboardController::class);
 
 Route::middleware(['auth', 'permission'])->group(function () {   
     Route::get('/article', [EmployeeDashboardController::class, 'show'])->name('article');
+    Route::get('/contacts', [EmployeeDashboardController::class, 'contacts'])->name('contacts');
     Route::get('/article-detail/{article}', [EmployeeDashboardController::class, 'edit'])->name('article-detail');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -62,6 +63,8 @@ Route::middleware(['auth', 'permission'])->group(function () {
     // Route::mediaLibrary();
     Route::resource('sections', SectionsController::class);
     Route::resource('employees',EmployeesController::class);
+    Route::get('/employees/{employee}/log', [EmployeesController::class, 'log'])->name('employees.log');
+
     Route::resource('articles', ArticlesController::class);
     Route::resource('inductions', InductionsController::class);
     Route::resource('quiz', QuizController::class);

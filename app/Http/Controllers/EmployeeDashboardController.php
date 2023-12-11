@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\Section;
 use App\Models\Notice;
+use App\Models\Employee;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Request;
@@ -30,9 +31,12 @@ class EmployeeDashboardController extends Controller
     }
     public function show()
     {
-        $sections = Section::all();
+        $employee = Employee::find(auth()->user()->id);
+        $sections = Section::where('department_id', $employee->department_id)->get();
         $articles = Article::with(['Section'])
+                            ->whereRelation('Section', 'department_id', $employee->department_id)
                             ->orderBy('id', 'desc')->get();
+
         return Inertia::render('Article',[
             'articles' => $articles,
             'sections' => $sections
@@ -52,6 +56,29 @@ class EmployeeDashboardController extends Controller
             'file_1' => $file_1,
             'file_2' => $file_2,
             'file_3' => $file_3,
+        ]);
+    }
+
+    public function contacts()
+    {
+       
+        return Inertia::render('Contacts', [
+            'filters' => Request::all('search'),
+            'employees' => Employee::whereNot('id', auth()->user()->id)->with(['Department', 'Designation', 'Users', 'LastLogin'])
+                ->filter(Request::only('search'))
+                ->orderBy('id', 'desc')
+                ->paginate(15)
+                ->withQueryString()
+                ->through(fn ($employee) => [
+                    'id' => $employee->id,
+                    'first_name' => $employee->first_name,
+                    'middle_name' => $employee->middle_name,
+                    'last_name' => $employee->last_name,
+                    'email' => $employee->email,
+                    'contact_no' => $employee->contact_no,
+                    'designation_name' => @$employee->designation->designation_name,
+                    'department_name' => @$employee->department->department_name,
+                ]),
         ]);
     }
 }

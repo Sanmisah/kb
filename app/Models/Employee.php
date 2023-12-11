@@ -35,6 +35,18 @@ class Employee extends Model
         return $this->hasOne(User::class, 'id');
     }
 
+    public function UserLogins()
+    {
+        return $this->hasMany(UserLogin::class, 'user_id');
+    }
+
+    public function LastLogin(){
+        return $this->hasOne(UserLogin::class, 'user_id')->latestofMany();
+    }
+       
+    
+
+
     public function Department() 
     {
         return $this->belongsTo(Department::class);

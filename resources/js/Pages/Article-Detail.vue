@@ -1,5 +1,6 @@
 <script setup>
 import { ref , onMounted} from 'vue';
+import { watch } from "vue";
 import Employee from '@/Layouts/EmployeeLayout.vue';
 import DLink from '@/Components/DashboardLink.vue';
 
@@ -10,9 +11,19 @@ const props = defineProps({
   file_3: Object, 
   video: Object
 });
+
+const playTime = ref(0);
 const tabMainChanged = (tabType) => {
     tabMain.value = tabType;
 };
+const videoPlayer = ref(null);
+
+const updatePlayTime = () => {
+    playTime.value = videoPlayer.value.currentTime;
+      console.log(videoPlayer.value.currentTime)
+};
+
+
 const tabMain = ref('notice');
 </script>
 
@@ -28,15 +39,12 @@ const tabMain = ref('notice');
             </div>
             <div class="grid grid-cols-4 gap-4 mb-4">
                 <div>
-                    <plyr>
-                        <video  controls
-                        crossorigin
-                        playsinline
-                        data-poster="poster.jpg">
-                            <source src="http://127.0.0.1:8000/media/24/big_buck_bunny_720p_1mb.mp4" type="video/mp4" />
-                            <source src="video.ogg" type="video/ogg" />
-                        </video>
-                    </plyr>
+                   
+                    <video ref="videoPlayer" width="400" controls @timeupdate="updatePlayTime">
+                        <source src="http://127.0.0.1:8000/media/24/big_buck_bunny_720p_1mb.mp4" type="video/mp4" />
+                        Your browser does not support HTML5 video.
+                      </video>
+                      <p>Current Play Time: {{ playTime }}</p>
 
                 </div>
                 <div class="p-4 relative col-start-2 col-end-5">

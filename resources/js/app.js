@@ -22,6 +22,7 @@ import 'vue-plyr/dist/vue-plyr.css';
 
 
 
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pinia = createPinia();
 const head = createHead();

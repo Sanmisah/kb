@@ -8,15 +8,28 @@ use App\Models\Section;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Article extends Model implements HasMedia
 {
-    use HasFactory, CreatedUpdatedBy, InteractsWithMedia;
+    use HasFactory, CreatedUpdatedBy, InteractsWithMedia, LogsActivity;
     protected $fillable = [
         'topic',
         'description',
         'section_id',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['topic', 'description', 'section_id']);
+        // Chain fluent methods for configuration options
+    }
+
+
+
+    protected static $logOnlyDirty = true;
 
     public function Section() 
     {

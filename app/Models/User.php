@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;  
 use App\Models\Employee;
+use App\Models\UserLogin;
 
 class User extends Authenticatable
 {
@@ -49,6 +50,11 @@ class User extends Authenticatable
     public function Employee()
     {
           return $this->hasOne(Employee::class, 'id');
+    }
+
+    public function UserLogins()
+    {
+          return $this->hasMany(UserLogin::class, 'user_id');
     }
 
     // user model function

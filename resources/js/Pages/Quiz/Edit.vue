@@ -6,7 +6,7 @@ import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 
-const props = defineProps({ quiz: Object, errors: Object});
+const props = defineProps({ quiz: Object, errors: Object, open: false});
 
 const form = useForm({
     _method: 'patch',
@@ -18,6 +18,14 @@ const form = useForm({
     answer: props.quiz.answer,
     type: props.quiz.type,
 });
+
+function questionType(){
+    if (form.type == 'Multiple Choice'){
+        console.log(form.type)
+    }else{
+        console.log(form.type)
+    }
+}
 
 </script>
 <template>    
@@ -43,7 +51,7 @@ const form = useForm({
                                 class="after:content-['*'] after:text-red-500"
                                 value="Question Type"
                             />
-                            <select class="form-select " v-model="form.type">    
+                            <select class="form-select " v-model="form.type" v-on:change="questionType()">    
                                 <option>Select</option>                            
                                 <option value="Single Choice">Single Choice</option>
                                 <option value="Multiple Choice">Multiple Choice</option>                                
@@ -54,16 +62,13 @@ const form = useForm({
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">
-                        <TextInput type="text" label="Answer 1" :error="errors.choice_1" v-model="form.choice_1"/>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">
+                    <div class="grid grid-cols-1 gap-4 mb-4" v-if="form.type == 'Multiple Choice'">
+                        <TextInput type="text" label="Answer 1" :error="errors.choice_1" v-model="form.choice_1" v-show="open = ! open"/>
+                    
                         <TextInput type="text" label="Answer 2" :error="errors.choice_2" v-model="form.choice_2"/>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">
+                    
                         <TextInput type="text" label="Answer 3" :error="errors.choice_3" v-model="form.choice_3"/>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">
+                    
                         <TextInput type="text" label="Answer 4" :error="errors.choice_4" v-model="form.choice_4"/>
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">                       

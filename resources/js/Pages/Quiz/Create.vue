@@ -21,8 +21,7 @@ const form = useForm({
 
 function questionType(){
     if (form.type == 'Multiple Choice'){
-        open = true;
-        console.log(open);
+        console.log(form.type)
     }else{
         console.log(form.type)
     }
@@ -70,8 +69,8 @@ function submit() {
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">
-                        <TextInput type="text" label="Answer 1" :error="errors.choice_1" v-model="form.choice_1"/>
+                    <div class="grid grid-cols-1 gap-4 mb-4" v-if="form.type == 'Multiple Choice'">
+                        <TextInput type="text" label="Answer 1" :error="errors.choice_1" v-model="form.choice_1" v-show="open = ! open"/>
                     
                         <TextInput type="text" label="Answer 2" :error="errors.choice_2" v-model="form.choice_2"/>
                     

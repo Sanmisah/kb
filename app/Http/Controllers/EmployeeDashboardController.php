@@ -8,6 +8,7 @@ use App\Models\Notice;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class EmployeeDashboardController extends Controller
 {
@@ -23,10 +24,13 @@ class EmployeeDashboardController extends Controller
                                 'notice_date' => $notice->notice_date,
                                 'notice' => $notice->notice,
                                 'description' => $notice->description]);
-        
+        // $media = Media::getMedia('attachment');
+        // dd($media);
         return Inertia::render('Employee-Dashboard',[
             'notices' => $notices,
         ]);
+
+        
     }
     public function show()
     {
@@ -53,5 +57,10 @@ class EmployeeDashboardController extends Controller
             'file_2' => $file_2,
             'file_3' => $file_3,
         ]);
+    }
+
+    public function destroy(Notice $notice)
+    {
+        dd($notice);
     }
 }

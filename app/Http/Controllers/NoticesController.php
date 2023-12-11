@@ -47,7 +47,8 @@ class NoticesController extends Controller
 
     public function store()
     {     
-        $input = Request::all();       
+        $input = Request::all();     
+        dd($input);  
         Request::validate([
             'notice_date' => 'required',
             'notice' => 'required',

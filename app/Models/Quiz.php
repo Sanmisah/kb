@@ -10,10 +10,11 @@ class Quiz extends Model
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
         'question',
-        'answer_1',
-        'answer_2',
-        'answer_3',
-        'answer_4',
+        'choice_1',
+        'choice_2',
+        'choice_3',
+        'choice_4',
+        'answer',
         'type',
     ];
     public function scopeFilter($query, array $filters)
@@ -21,10 +22,11 @@ class Quiz extends Model
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
                 $query->where('question', 'like', '%'.$search.'%')
-                        ->orWhere('answer_1', 'like', '%'.$search.'%')
-                        ->orWhere('answer_2', 'like', '%'.$search.'%')
-                        ->orWhere('answer_3', 'like', '%'.$search.'%')
-                        ->orWhere('answer_4', 'like', '%'.$search.'%')
+                        ->orWhere('choice_1', 'like', '%'.$search.'%')
+                        ->orWhere('choice_2', 'like', '%'.$search.'%')
+                        ->orWhere('choice_3', 'like', '%'.$search.'%')
+                        ->orWhere('choice_4', 'like', '%'.$search.'%')
+                        ->orWhere('answer', 'like', '%'.$search.'%')
                         ->orWhere('type', 'like', '%'.$search.'%');
             });
         });

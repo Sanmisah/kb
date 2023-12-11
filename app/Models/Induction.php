@@ -5,6 +5,7 @@ use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Department;
+use App\Models\Quiz;
 
 class Induction extends Model
 {
@@ -25,5 +26,9 @@ class Induction extends Model
     public function Department() 
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+    public function Quizzes()
+    {
+        return $this->hasMany(Quiz::class);
     }
 }

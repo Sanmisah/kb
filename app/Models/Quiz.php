@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Induction;
 
 class Quiz extends Model
 {
@@ -27,8 +28,13 @@ class Quiz extends Model
                         ->orWhere('choice_3', 'like', '%'.$search.'%')
                         ->orWhere('choice_4', 'like', '%'.$search.'%')
                         ->orWhere('answer', 'like', '%'.$search.'%')
-                        ->orWhere('type', 'like', '%'.$search.'%');
+                        ->orWhere('type', 'like', '%'.$search.'%')
+                        ->orWhereRelation('Induction', 'induction_name', 'like', '%'.$search.'%');
             });
         });
+    }
+    public function Induction() 
+    {
+        return $this->belongsTo(Induction::class);
     }
 }

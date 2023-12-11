@@ -62,6 +62,7 @@ watch(search, (value) => {
           <tr>
             <th>#</th>
             <th>Question</th>
+            <th>Induction</th>
             <th>Type</th>
             <th style="text-align: right;">Action</th>
           </tr>
@@ -70,6 +71,7 @@ watch(search, (value) => {
             <tr>
               <td>{{ index + 1 }}</td>
               <td>{{ val.question }}</td>
+              <td>{{ val.induction_name }}</td>
               <td>{{ val.type }}</td>
               <td style="float: right;">
                 <div class="flex gap-4">

@@ -7,7 +7,7 @@ import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 
-defineProps({ errors: Object, open: false});
+defineProps({ errors: Object, open: false, inductions: Object});
 
 const form = useForm({
     question: null,
@@ -17,6 +17,7 @@ const form = useForm({
     choice_4: null,
     answer: null,
     type: null,
+    induction_id: null,
 });
 
 function questionType(){
@@ -53,6 +54,7 @@ function submit() {
                         <TextInput type="text" label="Question" v-model="form.question" :required="true" :error="errors.question"/>
                     </div>
                     <div class="grid grid-cols-4 gap-4 mb-4">
+                        <SelectInput label="Induction" v-model="form.induction_id" :data="inductions" :error="errors.induction_id" />
                         <div>
                             <InputLabel
                                 class="after:content-['*'] after:text-red-500"
@@ -69,14 +71,14 @@ function submit() {
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4" v-if="form.type == 'Multiple Choice'">
-                        <TextInput type="text" label="Answer 1" :error="errors.choice_1" v-model="form.choice_1" v-show="open = ! open"/>
+                    <div class="grid grid-cols-4 gap-4 mb-4" v-if="form.type == 'Multiple Choice'">
+                        <TextInput type="text" label="Option 1" :error="errors.choice_1" v-model="form.choice_1"/>
                     
-                        <TextInput type="text" label="Answer 2" :error="errors.choice_2" v-model="form.choice_2"/>
+                        <TextInput type="text" label="Option 2" :error="errors.choice_2" v-model="form.choice_2"/>
                     
-                        <TextInput type="text" label="Answer 3" :error="errors.choice_3" v-model="form.choice_3"/>
+                        <TextInput type="text" label="Option 3" :error="errors.choice_3" v-model="form.choice_3"/>
                     
-                        <TextInput type="text" label="Answer 4" :error="errors.choice_4" v-model="form.choice_4"/>
+                        <TextInput type="text" label="Option 4" :error="errors.choice_4" v-model="form.choice_4"/>
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4">                       
                         <TextInput type="text" label="Answer" v-model="form.answer" :error="errors.answer"/>

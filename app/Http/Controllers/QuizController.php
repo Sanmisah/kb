@@ -42,10 +42,6 @@ class QuizController extends Controller
     {
         Request::validate([
             'question' => 'required',
-            'answer_1' => 'required',
-            'answer_2' => 'required',
-            'answer_3' => 'required',
-            'answer_4' => 'required',
             'type' => 'required',
         ]);
         Quiz::create(Request::all());
@@ -63,10 +59,6 @@ class QuizController extends Controller
     {
         Request::validate([
             'question' => 'required',
-            'answer_1' => 'required',
-            'answer_2' => 'required',
-            'answer_3' => 'required',
-            'answer_4' => 'required',
             'type' => 'required',
         ]);
         $quiz->fill(Request::all());    

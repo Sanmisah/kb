@@ -50,7 +50,7 @@ class EmployeeDashboardController extends Controller
     public function edit(Article $article): Response
     {
         $article->load(['Section']);
-        $video = $article->getFirstMedia('video_attachment');          
+        $video = $article->getFirstMediaUrl('video_attachment');    
         $file_1 = $article->getFirstMedia('file_attachment_1');
         $file_2 = $article->getFirstMedia('file_attachment_2');
         $file_3 = $article->getFirstMedia('file_attachment_3'); 
@@ -86,8 +86,9 @@ class EmployeeDashboardController extends Controller
         ]);
     }
 
-    public function destroy(Notice $notice)
+    public function view(Notice $notice)
     {
-        dd($notice);
+        $file_1 = $notice->getFirstMedia('attachment');
+        return response()->file('media/'.$file_1->id.'/'.$file_1->file_name);
     }
 }

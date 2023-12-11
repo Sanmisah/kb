@@ -43,6 +43,7 @@ Route::get('/employee_dashboard', function () {
     return Inertia::render('Employee-Dashboard');
 })->middleware(['auth', 'verified'])->name('employee_dashboard');
 Route::resource('employee_dashboard', EmployeeDashboardController::class);
+Route::get('employee_dashboard/{notice}/view',[EmployeeDashboardController::class, 'view'])->name('view');
 
 
 

@@ -78,20 +78,6 @@ watch(search, (value) => {
                                                 {{ notice.sr_no }}
                                             </span>
                                         </td>
-                                        <!--<td style="word-break:break-all;white-space: normal;">
-                                            <div class="font-medium overflow-hidden min-w-[300px] line-clamp-1">
-                                                <span class="'text-gray-800 dark:text-gray-300 font-semibold'">
-                                                    {{ notice.notice }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td style="word-break:break-all;white-space: normal;">
-                                            <div class="font-medium overflow-hidden min-w-[300px] line-clamp-1">
-                                                <span class="'text-gray-800 dark:text-gray-300 font-semibold'">
-                                                    {{ notice.description }}
-                                                </span>
-                                            </div>
-                                        </td>-->
                                         <td>
                                             <div
                                                 class="group-hover:text-primary font-semibold text-base whitespace-nowrap">
@@ -108,7 +94,7 @@ watch(search, (value) => {
                                         </td>
                                         <td>
                                         <!--<a href="'/media/'+ notice.getFirstMediaUrl('attachment')" target="_blank"></a>-->
-                                        <a :href="'/employee_dashboard/' + notice.id + '/destroy/'">
+                                        <a :href="'/employee_dashboard/' + notice.id + '/view/'" target="_blank">
                                         <button
                                             type="button"
                                             class="btn btn-outline-primary rounded-full p-2 bg-[#fafafa] dark:bg-[#060818] dark:hover:bg-primary"
@@ -142,77 +128,7 @@ watch(search, (value) => {
             </div>
             <Pagination :data="notices" />
         </div>
-        <br />
-        <!--<div class="panel flex-1 overflow-auto h-full">
-            <div class="mb-5">
-                <div class="mb-4 flex items-center sm:flex-row flex-col sm:justify-between justify-center">
-                    <div class="sm:mb-0 mb-4">
-                        <div class="text-lg font-semibold ltr:sm:text-left rtl:sm:text-right text-center">
-                            <h3>Article</h3>
-                        </div>
-                    </div>
-                    <div class="grid justify-items-stretch">
-                        <div>
-                            <Search v-model="search" class="mr-4 w-full max-w-md">
-                            </Search>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid md:grid-cols-1 xl:grid-cols-3 gap-6">
-                <template v-for="(article, index) in articles.data">
-                <div class="panel h-full dark:shadow-dark">
-                <section class="text-gray-600 body-font">
-                    <div class="container mx-auto">
-                        <div class="-my-8 divide-y-2 divide-gray-100">
-                            <div class="py-8 flex flex-wrap md:flex-nowrap">                        
-                                <div class="md:flex-grow">
-                                    <span class="font-semibold title-font text-gray-700">
-                                        {{article.section_name}}
-                                    </span>
-                                    <br />
-                                    <span class="mt-1 text-gray-500 text-sm">
-                                        {{article.created_at}}
-                                    </span>
-                                    <h2 class="text-xl font-medium text-gray-900 title-font mb-2">
-                                        {{article.topic}}
-                                    </h2>
-                                    <p class="leading-relaxed">
-                                        {{article.description}}
-                                    </p>
-                                </div>
-                                <div class="md:w-30 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                                    <a
-                                        href="javascript:;"
-                                        class="flex items-center bg-success/30 text-success rounded-md px-1.5 py-1 text-xs hover:shadow-[0_10px_20px_-10px] hover:shadow-success"
-                                        >Read More
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="w-4 h-4 rtl:rotate-180 ltr:ml-1.5 rtl:mr-1.5"
-                                        >
-                                            <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path
-                                                opacity="0.5"
-                                                d="M6.99976 19L12.9998 12L6.99976 5"
-                                                stroke="currentColor"
-                                                stroke-width="1.5"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                </div>
-                </template>
-            </div>
-        </div>-->
+        <br />     
+            
     </Employee>
 </template>

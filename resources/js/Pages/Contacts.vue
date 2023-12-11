@@ -23,7 +23,6 @@ const props = defineProps({
   }
 });
 
- const selectMainTab = 'contacts';
 const tabMain = ref('contacts');
 let search = ref(props.filters.search);
 
@@ -43,7 +42,7 @@ watch(search, (value) => {
     <Head title="Dashboard" />
 
     <Employee>       
-        <DLink v-model="selectMainTab"></DLink>
+        <DLink ></DLink>
         <br />        
         <div class="panel">
             <div class="mb-5">

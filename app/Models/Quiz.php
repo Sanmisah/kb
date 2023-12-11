@@ -17,6 +17,7 @@ class Quiz extends Model
         'choice_4',
         'answer',
         'type',
+        'induction_id'
     ];
     public function scopeFilter($query, array $filters)
     {

@@ -3,6 +3,7 @@ import { ref , onMounted} from 'vue';
 import { watch } from "vue";
 import Employee from '@/Layouts/EmployeeLayout.vue';
 import DLink from '@/Components/DashboardLink.vue';
+import axios from 'axios'
 
 const props = defineProps({
   article: Object, 
@@ -13,14 +14,53 @@ const props = defineProps({
 });
 
 const playTime = ref(0);
-const tabMainChanged = (tabType) => {
-    tabMain.value = tabType;
-};
+const saveInterval = null;
+
+let start = true;
+
+
+
 const videoPlayer = ref(null);
 
 const updatePlayTime = () => {
-    playTime.value = videoPlayer.value.currentTime;
-      console.log(videoPlayer.value.currentTime)
+     playTime.value = playTime.value + 1;
+     const currentTime = videoPlayer.value.currentTime;
+     if(start == true){
+        axios.post('/article/timing', {
+            timing: playTime.value / 3.75,
+            article_id: props.article.id,
+            current_time: currentTime,
+            start: true,
+        });
+        start = false;
+        console.log(start)
+
+     } else {
+        console.log('ko')
+        axios.post('/article/timing', {
+            timing: playTime.value / 3.75,
+            article_id: props.article.id,
+            current_time: currentTime,
+            start: false,
+        });
+
+     }
+     
+     
+   
+};
+
+
+const savePlayTime = () => {
+    const currentTime = videoPlayer.value.currentTime;
+    const totalWatchedTime = parseFloat(localStorage.getItem('totalWatchedTime')) || 0;
+      
+    // Calculate the total watched time by adding the current time to the previously saved time
+    const updatedTotalTime = totalWatchedTime + currentTime;
+    console.log(updatedTotalTime)
+      
+    // Save the updated total watched time to localStorage
+    localStorage.setItem('totalWatchedTime', updatedTotalTime.toString());
 };
 
 
@@ -44,7 +84,7 @@ const tabMain = ref('notice');
                         <source :src="video" type="video/mp4" />
                         Your browser does not support HTML5 video.
                       </video>
-                      <p>Current Play Time: {{ playTime }}</p>
+                      <!-- <p>Current Play Time: {{ playTime }}</p> -->
 
                 </div>
                 <div class="p-4 relative col-start-2 col-end-5">

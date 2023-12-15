@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Section;
+use App\Models\View;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Request;
@@ -119,6 +120,38 @@ class ArticlesController extends Controller
     {
         $article->delete();
         return to_route('articles.index');
+    }
+
+    public function timing(Request $request)
+    {
+        $input = Request::all();
+
+        if($input['start'] == true){
+            View::create([
+                'user_id'=> auth()->user()->id,
+                'article_id'=>$input['article_id'],
+                    'timing'=>$input['timing'],
+                    'current_time'=>$input['current_time'],
+            ]);
+
+        } 
+       
+        $view = View::where('article_id', $input['article_id'])->where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->first();
+       
+        if(empty($view)){
+            View::create([
+                'user_id'=> auth()->user()->id,
+                'article_id'=>$input['article_id'],
+                    'timing'=>$input['timing'],
+                    'current_time'=>$input['current_time'],
+            ]);
+        } else {
+            $view->fill([
+                'timing'=>$input['timing'],
+                    'current_time'=>$input['current_time'],
+            ]); 
+            $view->update();
+        }
     }
 
 }

@@ -44,8 +44,8 @@ Route::get('/employee_dashboard', function () {
 })->middleware(['auth', 'verified'])->name('employee_dashboard');
 Route::resource('employee_dashboard', EmployeeDashboardController::class);
 Route::get('employee_dashboard/{notice}/view',[EmployeeDashboardController::class, 'view'])->name('view');
-
-
+Route::get('/induction', [EmployeeDashboardController::class, 'induction'])->name('induction');
+Route::get('/induction/{induction}',[EmployeeDashboardController::class, 'quiz'])->name('quiz');
 
 Route::middleware(['auth', 'permission'])->group(function () {   
     Route::get('/article', [EmployeeDashboardController::class, 'show'])->name('article');

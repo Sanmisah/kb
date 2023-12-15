@@ -37,8 +37,7 @@
                             swipeEasing: true,
                             wheelPropagation: false,
                         }"
-                        class="relative ltr:pr-3.5 rtl:pl-3.5 ltr:-mr-3.5 rtl:-ml-3.5 h-full grow"
-                    >
+                        class="relative ltr:pr-3.5 rtl:pl-3.5 ltr:-mr-3.5 rtl:-ml-3.5 h-full grow">
                         <div class="space-y-1">                          
                            
                             <div class="text-white-dark px-1 py-3">Sections</div>

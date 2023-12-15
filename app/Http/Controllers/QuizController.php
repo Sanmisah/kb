@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use App\Models\Quiz;
+use App\Models\QuizDetail;
 use App\Models\Induction;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -23,11 +24,7 @@ class QuizController extends Controller
                 ->withQueryString()
                 ->through(fn ($quiz) => [
                     'id' => $quiz->id,
-                    'question' => $quiz->question,
-                    'answer_1' => $quiz->answer_1,
-                    'answer_2' => $quiz->answer_2,
-                    'answer_3' => $quiz->answer_3,
-                    'answer_4' => $quiz->answer_4,
+                    'question' => $quiz->question,                    
                     'type' => $quiz->type,
                     'induction_name' => @$quiz->induction->induction_name,
                     'canEdit' => Auth::user()->can('quiz.edit', $quiz),
@@ -46,15 +43,26 @@ class QuizController extends Controller
     {
         Request::validate([
             'question' => 'required',
-            'type' => 'required',
+            'type' => 'required',            
         ]);
-        Quiz::create(Request::all());
+
+        $quiz =  Quiz::create(Request::all());        
+        $data = Request::collect('quiz_details');
+        // dd($data);
+        foreach($data as $record){
+            QuizDetail::create([
+                'quiz_id' => $quiz->id,
+                'answer' => $record['answer'],
+                'isCorrect' => $record['isCorrect'],
+            ]);            
+        }  
         return to_route('quiz.index');
     }
 
     public function edit(Quiz $quiz): Response
     {
         $inductions = Induction::pluck('induction_name', 'id');
+        $quiz->load('QuizDetails');
         return Inertia::render('Quiz/Edit', [
             'quiz' => $quiz,
             'inductions' => $inductions,
@@ -65,10 +73,18 @@ class QuizController extends Controller
     {
         Request::validate([
             'question' => 'required',
-            'type' => 'required',
+            'type' => 'required',  
         ]);
-        $quiz->fill(Request::all());    
-        $quiz->update();
+        $quiz->update(Request::all());  
+
+        $data = Request::collect('quiz_details');
+        foreach($data as $record){
+            QuizDetail::updateOrInsert([ 'id'=>$record['id'] ? $record['id'] : null],[
+                'quiz_id' => $quiz->id,
+                'answer' => $record['answer'],
+                'isCorrect' => $record['isCorrect'],
+            ]);   
+        }         
         return to_route('quiz.index');
     }
 

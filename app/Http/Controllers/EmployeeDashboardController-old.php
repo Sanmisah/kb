@@ -140,34 +140,25 @@ class EmployeeDashboardController extends Controller
     }
 
     public function quiz(Induction $induction)
-    {        
-        $quiz = Quiz::with(['Induction', 'QuizDetails'])
-                    ->where('induction_id', $induction->id)
-                    ->orderBy('id', 'asc')
-                    ->get();
-        
-        return Inertia::render('Quiz',[
-            'quiz' => $quiz,     
+    {
+        return Inertia::render('Quiz', [
+            'quiz' => Quiz::with(['Induction'])
+                ->where('induction_id', $induction->id)
+                ->orderBy('id', 'asc')
+                ->paginate(1)
+                ->withQueryString()
+                ->through(fn ($quiz) => [
+                    'id' => $quiz->id,
+                    'question' => $quiz->question,
+                    'choice_1' => $quiz->choice_1,
+                    'choice_2' => $quiz->choice_2,
+                    'choice_3' => $quiz->choice_3,
+                    'choice_4' => $quiz->choice_4,
+                    'answer' => $quiz->answer,
+                    'induction_id' =>  $induction->id,
+                    'type' => $quiz->type,
+                ]),
         ]);
-
-        // return Inertia::render('Quiz', [
-        //     'quiz' => Quiz::with(['Induction'])
-        //         ->where('induction_id', $induction->id)
-        //         ->orderBy('id', 'asc')
-        //         ->paginate(1)
-        //         ->withQueryString()
-        //         ->through(fn ($quiz) => [
-        //             'id' => $quiz->id,
-        //             'question' => $quiz->question,
-        //             'choice_1' => $quiz->choice_1,
-        //             'choice_2' => $quiz->choice_2,
-        //             'choice_3' => $quiz->choice_3,
-        //             'choice_4' => $quiz->choice_4,
-        //             'answer' => $quiz->answer,
-        //             'induction_id' =>  $induction->id,
-        //             'type' => $quiz->type,
-        //         ]),
-        // ]);
     }
 
 }

@@ -9,26 +9,32 @@ import { ref, onMounted } from "vue";
 
 defineProps({ errors: Object, open: false, inductions: Object});
 
+const quiz_details = ref([]);
+const addItem = () => {
+    let maxId = 0;
+    if (quiz_details.value && quiz_details.value.length) {
+        maxId = quiz_details.value.reduce(
+            (max, character) => (character.id > max ? character.id : max),
+            quiz_details.value[0].id
+        );
+    }
+    quiz_details.value.push({
+        id: maxId + 1,
+        answer: "",
+        isCorrect: "",
+    });
+};
+const removeItem = (item = null) => {
+    quiz_details.value = quiz_details.value.filter((d) => d.id != item.id);
+};
 const form = useForm({
     question: null,
-    choice_1: null,
-    choice_2: null,
-    choice_3: null,
-    choice_4: null,
-    answer: null,
     type: null,
     induction_id: null,
+    quiz_details: null,
 });
-
-function questionType(){
-    if (form.type == 'Multiple Choice'){
-        console.log(form.type)
-    }else{
-        console.log(form.type)
-    }
-}
-
 function submit() {
+    form.quiz_details = quiz_details;
     router.post("/quiz", form);
 }
 </script>
@@ -71,29 +77,81 @@ function submit() {
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-4 gap-4 mb-4" v-if="form.type == 'Multiple Choice'">
-                        <TextInput type="text" label="Option 1" :error="errors.choice_1" v-model="form.choice_1"/>
-                    
-                        <TextInput type="text" label="Option 2" :error="errors.choice_2" v-model="form.choice_2"/>
-                    
-                        <TextInput type="text" label="Option 3" :error="errors.choice_3" v-model="form.choice_3"/>
-                    
-                        <TextInput type="text" label="Option 4" :error="errors.choice_4" v-model="form.choice_4"/>
+                </div>
+                <div class="panel table-responsive">
+                    <div class="flex items-center justify-between mb-5">
+                        <h5 class="font-semibold text-lg dark:text-white-light">
+                            Add Quiz Answers
+                        </h5>
                     </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">                       
-                        <TextInput type="text" label="Answer" v-model="form.answer" :error="errors.answer"/>
+                    <div class="flex xl:flex-row flex-col gap-2.5">
+                        <div class="panel px-0 flex-1 py-1 ltr:xl:mr-6 rtl:xl:ml-6">
+                            <div class="mt-8">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Option</th>
+                                                <th>Correct</th>
+                                                <th class="w-1"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template v-if="quiz_details.length <= 0">
+                                                <tr>
+                                                    <td colspan="5" class="!text-center font-semibold">
+                                                        No Item Available
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            <template v-for="(item, i) in quiz_details" :key="i">
+                                                <tr class="align-top">
+                                                    <td>
+                                                        <TextInput type="text" v-model="
+                                                            item.answer"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" class="form-checkbox text-success myCheck" v-model="item.isCorrect" />
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" @click="
+                                                            removeItem(item)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px"
+                                                                height="24px" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="1.5"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="w-5 h-5">
+                                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                            </svg>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="flex justify-between sm:flex-row flex-col mt-6 px-4">
+                                    <div class="sm:mb-0 mb-6">
+                                        <button type="button" class="btn btn-primary" @click="addItem()">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-end mt-4">
-                      <button type="submit" class="btn btn-success">Submit</button
-                      >&nbsp;&nbsp;
-                      <Link
-                          href="/quiz"
-                          class="btn btn-danger"
-                          :class="{
-                              active: $page.component === 'Quiz/Index',
-                          }"
-                          >Cancel</Link>
-                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="submit" class="btn btn-success">Submit</button
+                    >&nbsp;&nbsp;
+                    <Link
+                        href="/quiz"
+                        class="btn btn-danger"
+                        :class="{
+                            active: $page.component === 'Quiz/Index',
+                        }"
+                        >Cancel</Link>
                 </div>
             </form>
         </div>

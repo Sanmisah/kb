@@ -6,29 +6,64 @@ import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 
-const props = defineProps({ quiz: Object, errors: Object, open: false, inductions: Object,});
+const props = defineProps({ quiz: Object, errors: Object, inductions: Object});
+
+const quiz_details = ref([]);
+let maxId = 0;
+if (props.quiz.quiz_details) {
+    props.quiz.quiz_details.map(function (value, key) {
+        quiz_details.value.push({
+            max: key + 1,
+            id: value.id,
+            answer: value.answer,
+            isCorrect: value.isCorrect
+        });
+    });
+}
+// console.log(props.quiz.quiz_details[3]['isCorrect']);
+const addItem = () => {
+    let maxId = 0;
+    if (quiz_details.value && quiz_details.value.length) {
+        maxId = quiz_details.value.reduce(
+            (max, character) => (character.id > max ? character.id : max),
+            quiz_details.value[0].id
+        );
+    }
+
+    quiz_details.value.push({
+        max: maxId + 1,
+        id: "",
+        answer: "",
+        isCorrect: "",
+    });
+};
+
+const removeItem = (item = null) => {
+    quiz_details.value = quiz_details.value.filter((d) => d.id != item.id);
+};
 
 const form = useForm({
     _method: 'patch',
-    question: props.quiz.question,
-    choice_1: props.quiz.choice_1,
-    choice_2: props.quiz.choice_2,
-    choice_3: props.quiz.choice_3,
-    choice_4: props.quiz.choice_4,
-    answer: props.quiz.answer,
+    question: props.quiz.question,    
     type: props.quiz.type,
-    induction_id: props.quiz.induction_id
+    induction_id: props.quiz.induction_id,
+    quiz_details: props.quiz.quiz_details,
 });
 
-function questionType(){
-    if (form.type == 'Multiple Choice'){
-        console.log(form.type)
-    }else{
-        console.log(form.type)
+function handleCheckboxChange(){
+    if(quiz_details.value.isCorrect == 1){
+        console.log('true');
     }
 }
 
+function submit() {
+    form.quiz_details = quiz_details;
+    form.patch(route('quiz.update', props.quiz.id));
+}
+console.log(quiz_details.value);
+
 </script>
+
 <template>    
     <App>
         <ul class="flex space-x-2 rtl:space-x-reverse">
@@ -38,7 +73,7 @@ function questionType(){
         </ul>
         <br>
         <div class="pt-5">
-            <form class="space-y-5" @submit.prevent="form.post(route('quiz.update', props.quiz.id))">
+            <form class="space-y-5" @submit.prevent="submit">
                 <div class="panel">
                     <div class="flex items-center justify-between mb-5">
                         <h5 class="font-semibold text-lg dark:text-white-light">Edit Quiz</h5>
@@ -65,17 +100,78 @@ function questionType(){
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-4 gap-4 mb-4" v-if="form.type == 'Multiple Choice'">
-                        <TextInput type="text" label="Option 1" :error="errors.choice_1" v-model="form.choice_1"/>
-                    
-                        <TextInput type="text" label="Option 2" :error="errors.choice_2" v-model="form.choice_2"/>
-                    
-                        <TextInput type="text" label="Option 3" :error="errors.choice_3" v-model="form.choice_3"/>
-                    
-                        <TextInput type="text" label="Option 4" :error="errors.choice_4" v-model="form.choice_4"/>
+                </div>
+                <div class="panel table-responsive">
+                    <div class="flex items-center justify-between mb-5">
+                        <h5 class="font-semibold text-lg dark:text-white-light">
+                            Add Quiz Details
+                        </h5>
                     </div>
-                    <div class="grid grid-cols-1 gap-4 mb-4">                       
-                        <TextInput type="text" label="Answer" v-model="form.answer" :error="errors.answer"/>
+                    <div class="flex xl:flex-row flex-col gap-2.5">
+                        <div class="panel px-0 flex-1 py-1 ltr:xl:mr-6 rtl:xl:ml-6">
+                            <div class="mt-8">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Option</th>
+                                                <th>Correct</th>
+                                                <th class="w-1"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template v-if="quiz_details.length <= 0">
+                                                <tr>
+                                                    <td colspan="5" class="!text-center font-semibold">
+                                                        No Item Available
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            <template v-for="(item, i) in quiz_details" :key="i">
+                                                <tr class="align-top">
+                                                    <td>
+                                                        <input type="hidden"
+                                                            v-model="item.id" name="`quiz_details[${item.max}][id]`" />
+                                                        <TextInput type="text" 
+                                                            v-model="item.answer"
+                                                            name="`quiz_details[${item.max}][answer]`"  />
+                                                    </td>
+                                                    <td>
+                                                        <template v-if="item.isCorrect == '1'" :key="i">
+                                                            <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`" checked @change="handleCheckboxChange"/>
+                                                        </template>
+                                                        <template v-else>
+                                                            <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`"/>
+                                                        </template>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" @click="
+                                                            removeItem(item)
+                                                        ">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px"
+                                                                height="24px" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="1.5"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="w-5 h-5">
+                                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                            </svg>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="flex justify-between sm:flex-row flex-col mt-6 px-4">
+                                    <div class="sm:mb-0 mb-6">
+                                        <button type="button" class="btn btn-primary" @click="addItem()">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex justify-end mt-4">
                         <button type="submit" class="btn btn-success">Submit</button

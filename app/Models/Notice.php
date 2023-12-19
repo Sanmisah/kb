@@ -11,10 +11,12 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Notice extends Model implements HasMedia
 {
-    use HasFactory, CreatedUpdatedBy, InteractsWithMedia;
+    use HasFactory, CreatedUpdatedBy, InteractsWithMedia, LogsActivity;
     protected $fillable = [
         'sr_no',
         'notice_date',
@@ -23,6 +25,14 @@ class Notice extends Model implements HasMedia
         'designation_id',
         'description'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['sr_no','notice_date','notice','department_id','designation_id','description']);
+        // Chain fluent methods for configuration options
+    }
+    protected static $logOnlyDirty = true;
 
     public static function booted(): void
     {

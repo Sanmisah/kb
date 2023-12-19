@@ -4,13 +4,23 @@ namespace App\Models;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Department extends Model
 {
-    use HasFactory, CreatedUpdatedBy;
+    use HasFactory, CreatedUpdatedBy, LogsActivity;
     protected $fillable = [
         'department_name'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['department_name']);
+        // Chain fluent methods for configuration options
+    }
+    protected static $logOnlyDirty = true;
 
     public function scopeFilter($query, array $filters)
     {

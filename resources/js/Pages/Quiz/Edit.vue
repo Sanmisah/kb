@@ -138,7 +138,7 @@ console.log(quiz_details.value);
                                                     </td>
                                                     <td>
                                                         <template v-if="item.isCorrect == '1'" :key="i">
-                                                            <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`" checked @change="handleCheckboxChange"/>
+                                                            <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`" checked />
                                                         </template>
                                                         <template v-else>
                                                             <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`"/>

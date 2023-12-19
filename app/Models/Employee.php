@@ -8,10 +8,12 @@ use App\Models\Department;
 use App\Models\Designation;
 use App\Models\User;
 use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Employee extends Model
 {
-    use HasFactory, CreatedUpdatedBy;
+    use HasFactory, CreatedUpdatedBy, LogsActivity;
     protected $fillable = [
         'first_name',
         'middle_name',
@@ -29,6 +31,13 @@ class Employee extends Model
         'pincode',
         'dob'
     ];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['first_name','middle_name','last_name','email','contact_no','address_line_1','address_line_2','department_id','designation_id','date_of_joining','country','state','city','pincode','dob']);
+        // Chain fluent methods for configuration options
+    }
+    protected static $logOnlyDirty = true;
 
     public function Users() 
     {

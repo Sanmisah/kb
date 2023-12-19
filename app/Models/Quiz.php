@@ -6,15 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Induction;
 use App\Models\QuizDetail;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Quiz extends Model
 {
-    use HasFactory, CreatedUpdatedBy;
+    use HasFactory, CreatedUpdatedBy, LogsActivity;
     protected $fillable = [
         'question',
         'induction_id',
         'type',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['question','induction_id','type']);
+        // Chain fluent methods for configuration options
+    }
+    protected static $logOnlyDirty = true;
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {

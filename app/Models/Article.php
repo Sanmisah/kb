@@ -26,9 +26,6 @@ class Article extends Model implements HasMedia
         ->logOnly(['topic', 'description', 'section_id']);
         // Chain fluent methods for configuration options
     }
-
-
-
     protected static $logOnlyDirty = true;
 
     public function Section() 

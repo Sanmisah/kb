@@ -77,8 +77,10 @@ class QuizController extends Controller
         ]);
         $quiz->update(Request::all());  
 
-        $data = Request::collect('quiz_details');
+        $data = Request::collect('quiz_details');    
+        // dd($data);   
         foreach($data as $record){
+            
             QuizDetail::updateOrInsert([ 'id'=>$record['id'] ? $record['id'] : null],[
                 'quiz_id' => $quiz->id,
                 'answer' => $record['answer'],

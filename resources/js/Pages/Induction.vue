@@ -40,6 +40,7 @@ watch(search, (value) => {
 <template>
     <Employee>
     <DLink></DLink>
+    <br />
     <div class="panel">
             <div class="mb-5">
                 <div class="mb-4 flex items-center sm:flex-row flex-col sm:justify-between justify-center">

@@ -17,7 +17,6 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    tab: 'row_1',
 });
 const store = useAppStore();
 const defaultParams = ref({
@@ -161,7 +160,7 @@ const viewTask = (item: any = null) => {
                                 </button>
                                 <template v-for="(val, index) in quiz">
                                     <button type="button" class="items-center h-10 p-1 hover:bg-white-dark/10 rounded-md dark:hover:bg-[#181F32] font-medium text-success ltr:hover:pl-3 rtl:hover:pr-3 duration-300"
-                                    @click="tab = 'row_1'">
+                                    @click="tabChanged(index+1)">
                                         <span class="badge badge-outline-primary hover:badge badge-outline-success">{{ index+1 }}</span>
                                     </button>
                                 </template>
@@ -174,37 +173,35 @@ const viewTask = (item: any = null) => {
                 <div class="flex flex-col h-full">
                     <div class="table-responsive grow  sm:min-h-[300px] min-h-[400px]">
                         <table class="table-hover">
-                            <tbody> 
-                                
-                                <template v-for="(val, index) in quiz">   
-                                    <div v-if="tab === 'row_1'">
-                                    <div v-bind:id="'row_' + (index+1)">       
-                                        <tr class="group">      
-                                            <td>
-                                                <div class="font-semibold text-base whitespace-nowrap">
-                                                    <span class="text-white-dark">
-                                                        {{ index+1 }}
-                                                    </span> &nbsp;&nbsp;
-                                                    {{ val.question }}
-                                                </div>
-                                            </td> 
-                                        </tr>
-                                        <tr class="group">
-                                            <td>
-                                                <template v-for="(vals, i) in val.quiz_details" >
+                            <tbody>                                 
+                                <template v-for="(val, index) in quiz"> 
+                                    <div v-bind:id="'row_' + (index+1)">   
+                                        <div v-if="selectedTab === 'row_' + (index+1)"> 
+                                            <tr class="group">      
+                                                <td>
                                                     <div class="font-semibold text-base whitespace-nowrap">
-                                                        <label>
-                                                            <input type="radio" class="form-radio" :value="vals.answer"/>
-                                                            <span class="text-white-dark">{{ vals.answer }}</span>
-                                                        </label>
+                                                        <span class="text-white-dark">
+                                                            {{ index+1 }}
+                                                        </span> &nbsp;&nbsp;
+                                                        {{ val.question }}
                                                     </div>
-                                                </template>
-                                            </td>
-                                        </tr>
-                                    </div>
+                                                </td> 
+                                            </tr>
+                                            <tr class="group">
+                                                <td>
+                                                    <template v-for="(vals, i) in val.quiz_details" >
+                                                        <div class="font-semibold text-base whitespace-nowrap">
+                                                            <label>
+                                                                <input type="radio" name="answer" class="form-radio" :value="vals.answer"/>
+                                                                <span class="text-white-dark">{{ vals.answer }}</span>
+                                                            </label>
+                                                        </div>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                        </div> 
                                     </div>
                                 </template>
-                                
                             </tbody>
                         </table>
                     </div>

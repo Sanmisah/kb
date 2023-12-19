@@ -18,9 +18,9 @@ if (props.quiz.quiz_details) {
             answer: value.answer,
             isCorrect: value.isCorrect
         });
-    });
+    });    
 }
-// console.log(props.quiz.quiz_details[3]['isCorrect']);
+
 const addItem = () => {
     let maxId = 0;
     if (quiz_details.value && quiz_details.value.length) {
@@ -50,18 +50,10 @@ const form = useForm({
     quiz_details: props.quiz.quiz_details,
 });
 
-function handleCheckboxChange(){
-    if(quiz_details.value.isCorrect == 1){
-        console.log('true');
-    }
-}
-
 function submit() {
     form.quiz_details = quiz_details;
     form.patch(route('quiz.update', props.quiz.id));
 }
-console.log(quiz_details.value);
-
 </script>
 
 <template>    
@@ -136,12 +128,12 @@ console.log(quiz_details.value);
                                                             v-model="item.answer"
                                                             name="`quiz_details[${item.max}][answer]`"  />
                                                     </td>
-                                                    <td>
-                                                        <template v-if="item.isCorrect == '1'" :key="i">
-                                                            <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`" checked />
+                                                    <td>  
+                                                        <template v-if="item.isCorrect == 1">                                                  
+                                                        <input type="checkbox" class="form-checkbox text-success" name="`quiz_details[${item.max}][isCorrect]`" value="item.isCorrect" :checked="item.isCorrect" />
                                                         </template>
-                                                        <template v-else>
-                                                            <input type="checkbox" class="form-checkbox text-success" v-model="item.isCorrect" name="`quiz_details[${item.max}][isCorrect]`"/>
+                                                        <template v-else> 
+                                                        <input type="checkbox" class="form-checkbox text-success" name="`quiz_details[${item.max}][isCorrect]`" v-model="item.isCorrect" value="item.isCorrect"/>
                                                         </template>
                                                     </td>
                                                     <td>

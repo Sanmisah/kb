@@ -4,7 +4,6 @@ import App from "@/Layouts/app-layout.vue";
 import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({ users: Object });
-
 const deleteUser = () => {
     form.delete(route("users.destroy"));
 };
@@ -61,7 +60,10 @@ const deleteUser = () => {
                             <td>{{ index+1 }}</td>
                             <td align="right">{{ user.name }}</td>
                             <td align="right">{{ user.email }}</td>
-                            <td> {{ user.role}}
+                            <td v-if="user.roles"> 
+                                <div v-for="role in user.roles">
+                                    {{ role.name }}
+                                </div>                                                    
                             </td>
                             <td align="right">
                                 <span

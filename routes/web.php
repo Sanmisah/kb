@@ -46,6 +46,7 @@ Route::resource('employee_dashboard', EmployeeDashboardController::class);
 Route::get('employee_dashboard/{notice}/view',[EmployeeDashboardController::class, 'view'])->name('view');
 Route::get('/induction', [EmployeeDashboardController::class, 'induction'])->name('induction');
 Route::get('/induction/{induction}',[EmployeeDashboardController::class, 'quiz'])->name('quiz');
+Route::post('/induction/{induction}', [EmployeeDashboardController::class, 'store'])->name('store');
 
 Route::middleware(['auth', 'permission'])->group(function () {   
     Route::get('/article', [EmployeeDashboardController::class, 'show'])->name('article');

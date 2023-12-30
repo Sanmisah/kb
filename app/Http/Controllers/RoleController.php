@@ -92,7 +92,7 @@ class RoleController extends Controller
         $permissions = Permission::get();
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         // dd($rolePermissions);
-        return Inertia::render('Roles/Edit',compact('role','permissions','rolePermissions'));
+        return Inertia::render('Roles/Edit',compact('role','permissions','rolePermissions'));       
     }
     
     /**
@@ -104,23 +104,18 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        
-        // dd($request->input('permissions'));
         $this->validate($request, [
             'name' => 'required',
-        ]);
-    
+        ]);    
         $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
-       
+        $role->name = $request->input('name');       
+        $role->save();       
         if(in_array($request->input('All'), $request->permissions)){
-            // dd('hiii');
-             $permissions = Permission::pluck('id','id')->all();
-             $role->syncPermissions($permissions);
+            $permissions = Permission::pluck('id','id')->all();
+            $role->syncPermissions($permissions);
         } else {
-            // dd('uuui');
-            $role->syncPermissions($request->input('permissions'));
+            $role->syncPermissions($request->input('permissions'));            
+            
         }
         return to_route('roles.index')
                         ->with('success','Role updated successfully');

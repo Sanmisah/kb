@@ -9,6 +9,7 @@ use App\Models\Section;
 use App\Models\Notice;
 use App\Models\Employee;
 use App\Models\QuizDetail;
+use App\Models\EmployeeInductionDetail;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Request;
@@ -38,29 +39,15 @@ class EmployeeDashboardController extends Controller
     }
 
     public function store()
-    {
+    {                  
         $input = Request::all();
-        // answer check
-        if($input['multiple_choice_answer']){
-            $input['answer'] = $input['multiple_choice_answer'];
-        }else{
-            $input['answer'] = $input['single_choice_answer'];
-        }
-        
-        // isCorrect check
-        if($input['answer'] == $input['quiz_answer']){
-            $input['isCorrect'] = true;
-        }else{
-            $input['isCorrect'] = false;
-        }        
-        QuizDetail::create($input);
-
-        //redirection path for submitting quiz
-        if($input['current_page'] === $input['last_page']){
-            return to_route('induction')->with('success','You are successfully submitted quiz');
-        }else{
-            return redirect($input['next_page_url']);
-        }
+        $induction_id = $input['induction_id'];  
+        EmployeeInductionDetail::create($input);        
+        // if($input['last_quiz_id'] == $input['quiz_id']){
+        //     return to_route('induction')->with('success','You are successfully submitted quiz');
+        // }else {
+        //     return to_route("/induction/$induction_id");
+        // }
     }
 
     public function show()
@@ -145,10 +132,14 @@ class EmployeeDashboardController extends Controller
                     ->where('induction_id', $induction->id)
                     ->orderBy('id', 'asc')
                     ->get();
-        // dd($quiz);
+        $last_id = Quiz::select('id','induction_id')
+                        ->where('induction_id', $induction->id) 
+                        ->orderBy('id', 'desc')  
+                        ->limit(1)
+                        ->get(); 
         return Inertia::render('Quiz',[
-            'quiz' => $quiz,     
+            'quiz' => $quiz,  
+            'last_id' => $last_id,
         ]);        
     }
-
 }

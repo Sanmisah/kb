@@ -1,42 +1,20 @@
 
 <script setup>
-import { ref } from 'vue'
 import App from '@/Layouts/app-layout.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-
 const props = defineProps({ errors: Object, role: Object, permissions: Object, rolePermissions: Object })
-
 const form = useForm({
     name: props.role.name,
     guard_name: props.role.guard_name,
     permissions: [],
 })
 
-
-
-const arrayPermisions = Object.entries(props.rolePermissions).map((arr) => ({
-    permission: arr[1],
-}));
-
-console.log(arrayPermisions)
-
-/*function isChecked(){
-    console.log('hi');
-    if(form.permissions.id === rolePermissions){ 
-        console.log('true')
-        return 'checked'
-    }else{
-        console.log('false')
-        return ''
-    }
-}*/
-
 function submit() {
     form.patch(route('roles.update', props.role.id));
 }
+
 </script>
 
 <template>
@@ -71,17 +49,40 @@ function submit() {
                                         v-model="form.permissions" v-bind:value="All" v-bind:id="all" v-bind:name="all" />
                                     All
                                 </li>
-                                <li v-for="permission in permissions" :key="permission.id"
-                                    style="width:19%;display: inline-block;">
-
-
-                                    <input type="checkbox" v-model="form.permissions" v-bind:id="permission.name"
-                                        v-bind:value="permission.name" class="form-checkbox"
-                                        :checked="arrayPermisions.some(data => data.permission == permission.name)" /> {{
-                                            permission.name }}
-
-                                </li>
-                             
+                                <!-- save checkboxes -->
+                                <!-- <li v-for="permission in permissions" style="width:19%;display:inline-block"> 
+                                    <label class="inline-flex">                                        
+                                        <input  type="checkbox" 
+                                                class="form-checkbox permission"  
+                                                v-model="form.permissions" :value="permission.name" :id="permission.name" :name="permission.name"
+                                                                                       
+                                                :checked="props.rolePermissions.includes(permission.name)">
+                                                {{ permission.name }}
+                                    </label>        
+                                </li>    -->
+                                <!-- display selected checkbox -->
+                                <li v-for="permission in permissions" style="width:19%;display:inline-block"> 
+                                    <template v-if="props.rolePermissions.includes(permission.name)">
+                                        <label class="inline-flex">                                        
+                                            <input  type="checkbox" 
+                                                    :name="permission.name"                                                      
+                                                    :value="permission.name"        
+                                                    class="form-checkbox"      
+                                                    checked>
+                                                    {{ permission.name }}
+                                        </label>  
+                                    </template>
+                                    <template v-else> 
+                                        <label class="inline-flex">                                        
+                                            <input  type="checkbox" 
+                                                    :name="permission.name"                                                      
+                                                    :value="permission.name" 
+                                                    v-model="form.permissions"       
+                                                    class="form-checkbox permission">
+                                                    {{ permission.name }}
+                                        </label>  
+                                    </template>                                          
+                                </li>                                           
                             </ul>
                         </div>
                     </div>

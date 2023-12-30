@@ -5,9 +5,6 @@ import TextInput from "@/Components/TextInput.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 const props = defineProps({ errors: Object, user: Object , roles: Object, userRole: Object});
-console.log(props.userRole)
-
-
 
 const form = useForm({
     name: props.user.name,
@@ -52,7 +49,6 @@ const form = useForm({
                         <!--<SelectInput  label="Role" :required="true" v-model="form.role" :data="roles" :error="errors.role" />-->
                         <div>
                             <InputLabel
-                                for="role"
                                 class="after:content-['*'] after:text-red-500"
                                 value="Role"
                             />
@@ -71,8 +67,7 @@ const form = useForm({
                             </div>
                         </div>
                         <div>
-                            <InputLabel
-                                for="active"
+                            <InputLabel                               
                                 class="after:content-['*'] after:text-red-500"
                                 value="Active"
                             />

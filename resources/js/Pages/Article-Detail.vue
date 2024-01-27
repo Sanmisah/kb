@@ -2,7 +2,7 @@
 import { ref , onMounted} from 'vue';
 import { watch } from "vue";
 import Employee from '@/Layouts/EmployeeLayout.vue';
-import DLink from '@/Components/DashboardLink.vue';
+import DLink from '@/Components/DashboardLink1.vue';
 import axios from 'axios'
 
 const props = defineProps({

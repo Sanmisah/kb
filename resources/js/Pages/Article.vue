@@ -1,6 +1,7 @@
 <template>
     <Employee>
     <DLink></DLink>
+    <br />
     <div>
         <div class="flex gap-5 relative sm:h-[calc(100vh_-_150px)] h-full">
             <div
@@ -238,7 +239,7 @@
     import { ref, onMounted } from 'vue';
     import { useAppStore } from '@/stores/index';
     import Employee from '@/Layouts/EmployeeLayout.vue';
-    import DLink from '@/Components/DashboardLink.vue';
+    import DLink from '@/Components/DashboardLink1.vue';
     const props = defineProps({
     filters: {
         type: Object,

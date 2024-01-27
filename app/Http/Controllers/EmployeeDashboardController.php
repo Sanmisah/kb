@@ -10,6 +10,7 @@ use App\Models\Notice;
 use App\Models\Employee;
 use App\Models\QuizDetail;
 use App\Models\EmployeeInductionDetail;
+use App\Models\EmployeeInduction;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Request;
@@ -41,8 +42,21 @@ class EmployeeDashboardController extends Controller
     public function store()
     {                  
         $input = Request::all();
+        dd($input);
         $induction_id = $input['induction_id'];  
-        EmployeeInductionDetail::create($input);        
+
+        $employee_induction = EmployeeInduction::create($input); 
+        // dd($employee_induction);
+ 
+        $data = Request::collect('employee_induction_details');
+        foreach($data as $record){
+            QuizDetail::create([
+                'employee_induction_id' => $employee_induction->id,
+                'quiz_id' => $record['quiz_id'],
+                'answer' => $record['answer'],
+                'check' => $record['check'],
+            ]);            
+        }        
         // if($input['last_quiz_id'] == $input['quiz_id']){
         //     return to_route('induction')->with('success','You are successfully submitted quiz');
         // }else {
@@ -99,6 +113,23 @@ class EmployeeDashboardController extends Controller
                     'designation_name' => @$employee->designation->designation_name,
                     'department_name' => @$employee->department->department_name,
                 ]),
+        ]);
+    }
+
+    public function notices()
+    {       
+        return Inertia::render('Notice', [
+            'notices' => Notice::filter(Request::only('search'))
+            ->orderBy('id', 'desc')
+            ->paginate(15)
+            ->withQueryString()
+            ->through(fn ($notice) => [
+                'id' => $notice->id,
+                'sr_no' => $notice->sr_no,
+                'notice_date' => $notice->notice_date,
+                'notice' => $notice->notice,
+                'description' => $notice->description
+            ]),
         ]);
     }
 

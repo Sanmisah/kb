@@ -6,7 +6,7 @@ import { ref , onMounted} from 'vue';
 import { router } from '@inertiajs/vue3';
 import Employee from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import DLink from '@/Components/DashboardLink.vue';
+import DLink from '@/Components/DashboardLink1.vue';
 
 const props = defineProps({
   employees: {

@@ -22,7 +22,7 @@ class EmployeeDashboardController extends Controller
     {
         $notices = Notice::filter(Request::only('search'))
                             ->orderBy('id', 'desc')
-                            ->paginate(5)
+                            ->paginate(10)
                             ->withQueryString()
                             ->through(fn ($notice) => [
                                 'id' => $notice->id,
@@ -112,6 +112,23 @@ class EmployeeDashboardController extends Controller
                     'designation_name' => @$employee->designation->designation_name,
                     'department_name' => @$employee->department->department_name,
                 ]),
+        ]);
+    }
+
+    public function notices()
+    {  
+        return Inertia::render('Notice', [
+            'filters' => Request::only('search'),
+            'notices' => Notice::filter(Request::only('search'))
+                                ->orderBy('id', 'desc')
+                                ->paginate(10)
+                                ->withQueryString()
+                                ->through(fn ($notice) => [
+                                    'id' => $notice->id,
+                                    'sr_no' => $notice->sr_no,
+                                    'notice_date' => $notice->notice_date,
+                                    'notice' => $notice->notice,
+                                    'description' => $notice->description]),
         ]);
     }
 

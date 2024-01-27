@@ -16,10 +16,6 @@ const props = defineProps({
   filters: {
     type: Object,
     default: () => ({}),
-  },
-  articles: {
-    type: Object,
-    default: () => ({}),
   }
 });
 const tabMainChanged = (tabType) => {
@@ -30,7 +26,7 @@ let search = ref(props.filters.search);
 
 watch(search, (value) => {
   router.get(
-    "employee_dashboard",
+    "notice",
     { search: value },
     {
       preserveState: true,
@@ -49,7 +45,7 @@ watch(search, (value) => {
         </template>
         <DLink></DLink>
         <br />        
-        <!-- <div class="panel">
+        <div class="panel">
             <div class="mb-5">
                 <div class="mb-4 flex items-center sm:flex-row flex-col sm:justify-between justify-center">
                     <div class="sm:mb-0 mb-4">
@@ -71,11 +67,6 @@ watch(search, (value) => {
                                 <tr>
                                     <td>
                                         {{ index + 1 }}
-                                    </td>
-                                    <td>
-                                        <span class="'text-gray-800 dark:text-gray-300 font-semibold'">
-                                            {{ notice.sr_no }}
-                                        </span>
                                     </td>
                                     <td>
                                         <div
@@ -124,50 +115,6 @@ watch(search, (value) => {
                 </div>
             </div>
             <Pagination :data="notices" />
-        </div>
-        <br />      -->
-        <div class="pt-5">
-            <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
-                <div class="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                    <h5 class="font-semibold text-lg dark:text-white-light mb-5">Notices</h5>
-                    <perfect-scrollbar
-                        :options="{
-                            swipeEasing: true,
-                            wheelPropagation: false,
-                        }"
-                        class="relative mb-4 h-[290px] ltr:pr-3 rtl:pl-3 ltr:-mr-3 rtl:-ml-3"
-                    >
-                    <template v-for="(notice, index) in notices.data">
-                        <div class="text-sm cursor-pointer">
-                            <div class="flex items-center py-1.5 relative group">
-                                <div class="bg-primary w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5"></div>
-                                <div class="flex-1">{{ notice.notice }}</div>
-                                <div class="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">{{ notice.notice_date}}</div>                                
-                            </div>
-                        </div>
-                    </template>
-                    </perfect-scrollbar>
-                    <div class="border-t border-white-light dark:border-white/10">
-                        <a :href="'/notice'" class="font-semibold group hover:text-primary p-4 flex items-center justify-center group">
-                            View All
-                            <svg
-                                class="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M4 12H20M20 12L14 6M20 12L14 18"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </Employee>
 </template>

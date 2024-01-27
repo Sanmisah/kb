@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import Employee from '@/Layouts/EmployeeLayout.vue';
-import DLink from '@/Components/DashboardLink.vue';
+import DLink from '@/Components/DashboardLink1.vue';
 import { useForm } from '@inertiajs/vue3';
 import { router } from "@inertiajs/vue3";
 
@@ -9,28 +9,16 @@ const props = defineProps({
     quiz: Object, 
     last_id: Object,      
 });
-
 const selectedTab = ref('');
 const tabChanged = (type: any = null) => {
     let className = 'row_'+ type;
     selectedTab.value = className;
+    console.log(props.quiz[type]);
 };
-
-const quiz_details = ref([]);
-for (const element of props.quiz) {  
-    for(const ele of element.quiz_details){  
-        quiz_details.value.push({           
-            id: ele.id,
-            quiz_id: ele.quiz_id,
-            answer: ele.answer,
-            isCorrect: ele.isCorrect,
-            createdBy: ele.createdBy,
-        });
-    }
-}
 
 const form = useForm({
     answer: null,
+    quiz_id: null,
     induction_id: props.quiz[0].induction_id,  
     last_quiz_id: props.last_id[0].id,   
 });
@@ -96,6 +84,7 @@ function submit() {
                                                             </span> &nbsp;&nbsp;
                                                             {{ val.question }}
                                                             <input type="hidden" class="form-input" v-model="form.induction_id"/>
+                                                            
                                                         </div>
                                                     </td> 
                                                 </tr>

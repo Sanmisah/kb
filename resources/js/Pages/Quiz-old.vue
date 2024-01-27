@@ -3,7 +3,7 @@ import Pagination from "@/Components/Pagination.vue";
 import { ref , onMounted} from 'vue';
 import { watch } from "vue";
 import Employee from '@/Layouts/EmployeeLayout.vue';
-import DLink from '@/Components/DashboardLink.vue';
+import DLink from '@/Components/DashboardLink1.vue';
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { router } from "@inertiajs/vue3";
 

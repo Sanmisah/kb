@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.2.1 (64 bit)
-MySQL - 10.6.12-MariaDB-0ubuntu0.22.04.1 : Database - kb
+SQLyog Community v13.1.1 (64 bit)
+MySQL - 10.4.28-MariaDB : Database - kb
 *********************************************************************
 */
 

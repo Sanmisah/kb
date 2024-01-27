@@ -50,6 +50,7 @@ Route::post('/induction/{induction}', [EmployeeDashboardController::class, 'stor
 
 Route::middleware(['auth', 'permission'])->group(function () {   
     Route::get('/article', [EmployeeDashboardController::class, 'show'])->name('article');
+    Route::get('/notice', [EmployeeDashboardController::class, 'notices'])->name('notice');
     Route::get('/contacts', [EmployeeDashboardController::class, 'contacts'])->name('contacts');
     Route::get('/article-detail/{article}', [EmployeeDashboardController::class, 'edit'])->name('article-detail');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

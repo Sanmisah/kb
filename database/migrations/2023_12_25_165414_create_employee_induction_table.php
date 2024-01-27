@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_inductions', function (Blueprint $table) {
+        Schema::create('employee_induction_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('induction_id', 11)->nullable();
+            $table->foreignId('employee_induction_id', 11)->nullable();
+            $table->foreignId('quiz_id', 11)->nullable();
+            $table->string('answer', 255)->nullable();
+            $table->enum('check', ['0', '1'])->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employee_inductions');
+        Schema::dropIfExists('employee_induction_details');
     }
 };

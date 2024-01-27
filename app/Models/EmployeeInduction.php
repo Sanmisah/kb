@@ -6,28 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use App\Models\EmployeeInduction;
+use App\Models\EmployeeInductionDetail;
 
-class EmployeeInductionDetail extends Model
+class EmployeeInduction extends Model
 {
     use HasFactory, CreatedUpdatedBy, LogsActivity;
     protected $fillable = [
-        'employee_induction_id',
-        'quiz_id',
-        'answer',
-        'check'
+        'induction_id',       
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logOnly(['induction_id','quiz_id','answer','check']);
+        ->logOnly(['induction_id']);
         // Chain fluent methods for configuration options
     }
     protected static $logOnlyDirty = true;
 
-    public function EmployeeInduction() 
+    public function EmployeeInductionDetails()
     {
-        return $this->belongsTo(EmployeeInduction::class);
+        return $this->hasMany(EmployeeInductionDetail::class);
     }
 }

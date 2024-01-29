@@ -80,7 +80,7 @@ class EmployeesController extends Controller
         $input['active'] = true;    
         $input['role'] = 'Employee';  
         $user = User::create($input);
-        // $user->syncRoles($input['role']);
+        $user->syncRoles($input['role']);
         $user->Employee()->create($input);
         return to_route('employees.index');
     }

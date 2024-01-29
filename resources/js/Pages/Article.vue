@@ -198,14 +198,10 @@
 
                                                 <template v-if="task.tag">
                                                     <div>                                                           
-                                                        <a
-                                                            href="#"
-                                                            class="badge rounded-full hover:top-0 hover:text-white badge-outline-primary hover:bg-info "
-                                                            
-                                                        >
+                                                        <a href="#"
+                                                            class="text-center whitespace-nowrap badge badge-outline-primary rounded-full" >
                                                             {{ task.tag }}
                                                         </a>
-                                                            
                                                     </div>
                                                 </template>
                                             </td>

@@ -59,6 +59,13 @@
                             </svg>
                         </div>
                     </Link>
+                    <ul class="sub-menu">
+                        <template v-for="(section, index) in sections">
+                            <li>
+                                {{ section.section_name }}
+                            </li>
+                        </template>
+                    </ul>
                 </li>
                 <li class="menu nav-item relative">
                     <Link href="javascript:;" class="nav-link">
@@ -162,15 +169,32 @@
     import { useRoute } from 'vue-router';
     import { useAppStore } from '@/stores/index';
     import { Link } from '@inertiajs/vue3';
+    import { router } from '@inertiajs/vue3';
+
     const showCustomizer = ref(false);
     const store = useAppStore();   
 
+    const props = defineProps({
+        sections: {
+            type: Object,
+            default: () => ({}),
+        },
+    });
+
+    
     onMounted(() => {
         setActiveDropdown();
     });
 
-    watch(route, (to, from) => {
+    watch(route, (to, from, value) => {
         setActiveDropdown();
+        router.get(
+            "sections",
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
     });
 
     const setActiveDropdown = () => {

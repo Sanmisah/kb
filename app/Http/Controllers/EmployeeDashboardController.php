@@ -78,6 +78,18 @@ class EmployeeDashboardController extends Controller
         ]);
     }
 
+    public function sections()
+    {
+        return Inertia::render('Components/DashboardLink1', [           
+            'sections' => Section::orderBy('id', 'desc')
+                                    ->withQueryString()
+                                    ->through(fn ($section) => [
+                                        'id' => $section->id,
+                                        'section_name' => $section->section_name,
+                                    ]),
+        ]);
+    }
+
     public function edit(Article $article): Response
     {
         $article->load(['Section']);

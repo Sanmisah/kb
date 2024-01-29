@@ -66,9 +66,6 @@ watch(search, (value) => {
                             <template v-for="(notice, index) in notices.data">
                                 <tr>
                                     <td>
-                                        {{ index + 1 }}
-                                    </td>
-                                    <td>
                                         <div
                                             class="group-hover:text-primary font-semibold text-base whitespace-nowrap">
                                             {{ notice.notice }}

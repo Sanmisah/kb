@@ -47,7 +47,8 @@
                 <div v-if="$page.props.flash.error" >
                     <Alert :data="$page.props.flash.error" :flag="false"/>
                 </div>
-                <div class="p-6 animation">
+                <!-- <div class="p-6 animation"> -->
+                <div class="animation">
                      <main>
                         <slot />
                     </main>

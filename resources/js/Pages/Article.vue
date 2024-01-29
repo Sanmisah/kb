@@ -132,7 +132,7 @@
                                 <input
                                     type="text"
                                     class="form-input peer ltr:!pr-10 rtl:!pl-10"
-                                    placeholder="Search Task..."
+                                    placeholder="Search ..."
                                     v-model="searchTask"
                                     @keyup="searchTasks()"
                                 />
@@ -172,7 +172,7 @@
                     </div>
                     <div class="h-px w-full border-b border-[#e0e6ed] dark:border-[#1b2e4b]"></div>
                     <template v-if="pagedTasks.length">
-                        <div class="table-responsive grow  sm:min-h-[300px] min-h-[400px]">
+                        <div class="table-responsive grow overflow-y-auto sm:min-h-[300px] min-h-[400px]">
                             <table class="table-hover">
                                 <tbody>
                                     <template v-for="task in pagedTasks" :key="task.id">
@@ -209,14 +209,14 @@
                                                     </div>
                                                 </template>
                                             </td>
-                                            <td >
+                                            <!-- <td >
                                                 <p
                                                     class="whitespace-nowrap text-white-dark font-medium"
                                                     :class="{ 'line-through': task.status === 'complete' }"
                                                 >
                                                     {{ task.date }}
                                                 </p>
-                                            </td>         
+                                            </td>          -->
                                         </a>                                  
                                         </tr>
                                     </template>
@@ -240,6 +240,7 @@
     import { useAppStore } from '@/stores/index';
     import Employee from '@/Layouts/EmployeeLayout.vue';
     import DLink from '@/Components/DashboardLink1.vue';
+    import { create } from 'maska';
     const props = defineProps({
     filters: {
         type: Object,
@@ -277,12 +278,13 @@
     const params = ref(JSON.parse(JSON.stringify(defaultParams.value)));
     const allTasks = ref([]);
     props.articles.map(function (value) {
+       
         allTasks.value.push({
             id: value.id,
             description: value.description,
             descriptionText: value.description,
             title: value.topic,
-            date: value.created_at,          
+            date: value.created_at,       
             tag: ''+value.section.section_name+'',
             priority: 'medium',
             assignee: '',

@@ -71,7 +71,7 @@ class EmployeeDashboardController extends Controller
         $articles = Article::with(['Section'])
                             ->whereRelation('Section', 'department_id', $employee->department_id)
                             ->orderBy('id', 'desc')->get();
-
+                            
         return Inertia::render('Article',[
             'articles' => $articles,
             'sections' => $sections

@@ -238,19 +238,24 @@
     import DLink from '@/Components/DashboardLink1.vue';
     import { create } from 'maska';
     const props = defineProps({
-    filters: {
-        type: Object,
-        default: () => ({}),
-    },
-    articles: {
-        type: Array,
-        default: () => ({}),
-    },
-    sections: {
-        type: Object,
-        default: () => ({}),
-    }
-});
+        filters: {
+            type: Object,
+            default: () => ({}),
+        },
+        articles: {
+            type: Array,
+            default: () => ({}),
+        },
+        sections: {
+            type: Object,
+            default: () => ({}),
+        },
+        section: {
+            type: Object,
+            default: () => ({}),
+        }
+    });
+    console.log(props.section);
     const store = useAppStore();
 
     const defaultParams = ref({

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\UserLogin;
+use App\Models\Employee;
+use App\Models\Section;
 use Carbon\Carbon;
 use Jenssegers\Agent\Facades\Agent;
 
@@ -55,6 +57,9 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         if($role == 'Employee'){
+            $employee = Employee::find(auth()->user()->id);
+            $sections = Section::where('department_id', $employee->department_id)->get();
+            Inertia::share('sections', $sections);
             return redirect()->intended(RouteServiceProvider::EMPLOYEE);
         }    
 

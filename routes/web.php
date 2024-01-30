@@ -32,7 +32,7 @@ use Inertia\Inertia;
 
 Route::group(['middleware' => ['guest']], function() {
     Route::get('/', [AuthenticatedSessionController::class, 'create'])
-            ->name('login');
+            ->name('login');    
 });
 
 Route::get('/dashboard', function () {
@@ -47,12 +47,15 @@ Route::get('employee_dashboard/{notice}/view',[EmployeeDashboardController::clas
 Route::get('/induction', [EmployeeDashboardController::class, 'induction'])->name('induction');
 Route::get('/induction/{induction}',[EmployeeDashboardController::class, 'quiz'])->name('quiz');
 Route::post('/induction/{induction}', [EmployeeDashboardController::class, 'store'])->name('store');
+Route::post('/components/dashboard_link1', [AuthenticatedSessionController::class, 'store'])->name('store');
+// Route::get('/resources/js/Components/DashboardLink1.vue', function () {
+//     return Inertia::render('Components/DashboardLink1');
+// })->middleware(['auth', 'verified'])->name('Components/DashboardLink1');
 
 Route::middleware(['auth', 'permission'])->group(function () {   
     Route::get('/article', [EmployeeDashboardController::class, 'show'])->name('article');
     Route::get('/notice', [EmployeeDashboardController::class, 'notices'])->name('notice');
-    Route::get('/contacts', [EmployeeDashboardController::class, 'contacts'])->name('contacts');
-    Route::get('/components/dashboard_link1', [EmployeeDashboardController::class, 'sections'])->name('components.dashboard_link1');
+    Route::get('/contacts', [EmployeeDashboardController::class, 'contacts'])->name('contacts');   
     Route::get('/article-detail/{article}', [EmployeeDashboardController::class, 'edit'])->name('article-detail');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

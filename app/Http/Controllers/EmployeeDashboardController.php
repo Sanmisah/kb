@@ -80,13 +80,13 @@ class EmployeeDashboardController extends Controller
 
     public function sections()
     {
-        return Inertia::render('Components/DashboardLink1', [           
-            'sections' => Section::orderBy('id', 'desc')
-                                    ->withQueryString()
-                                    ->through(fn ($section) => [
-                                        'id' => $section->id,
-                                        'section_name' => $section->section_name,
-                                    ]),
+        $section = Section::orderBy('id', 'desc')->get();
+        // dd($section);
+        // return Inertia::render('/resources/js/Components/DashboardLink1.vue', [           
+        //     'section' => $section
+        // ]);
+        return Inertia::render('Components/DashboardLink1.vue', [           
+            'section' => $section
         ]);
     }
 

@@ -1,3 +1,51 @@
+<script lang="ts" setup>
+    import { ref, onMounted, computed, reactive, watch } from 'vue';
+    import { useAppStore } from '@/stores/index';
+    import { Link } from '@inertiajs/vue3';
+    import { router } from '@inertiajs/vue3';
+    const store = useAppStore();   
+    const props = defineProps({
+        canLogin: {
+            type: Boolean,
+        },
+        canRegister: {
+            type: Boolean,
+        },
+        sections: {
+            type: Object,
+        },
+    });    
+    console.log(props.sections);
+    onMounted(() => {
+        setActiveDropdown();
+    });
+
+    watch(route, (to, from) => {
+        setActiveDropdown(); 
+    });
+
+    const setActiveDropdown = () => {
+        const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
+        if (selector) {
+            selector.classList.add('active');
+            const all: any = document.querySelectorAll('ul.horizontal-menu .nav-link.active');
+            for (let i = 0; i < all.length; i++) {
+                all[0]?.classList.remove('active');
+            }
+            const ul: any = selector.closest('ul.sub-menu');
+            if (ul) {
+                let ele: any = ul.closest('li.menu').querySelectorAll('.nav-link');
+                if (ele) {
+                    ele = ele[0];
+                    setTimeout(() => {
+                        ele?.classList.add('active');
+                    });
+                }
+            }
+        }
+    };
+</script>
+
 <template>
     <div :class="{ 'horizontal': store.menu }">
         <div class="shadow-sm">
@@ -59,12 +107,48 @@
                             </svg>
                         </div>
                     </Link>
-                    <ul class="sub-menu">
-                        <template v-for="(section, index) in sections">
-                            <li>
-                                {{ section.section_name }}
-                            </li>
-                        </template>
+                    <ul class="sub-menu">    
+                        <template v-for="(section, index) in this.$page.props.sections">                   
+                        <li>
+                            <router-link to="/" class="nav-link">{{ section.section_name }}</router-link>
+                        </li>          
+                        </template>              
+                        <!-- <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Data sheets') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Videos') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('QA/QC Checklist ') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('HSE Documents') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Drawings & Sketches') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Codes') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Books') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Magazines/Journals/ArƟcles') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Research Papers') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Basic Design Principles') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Consumption Statements') }}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="nav-link">{{ $t('Manpower Usage Statements') }}</a>
+                        </li> -->
                     </ul>
                 </li>
                 <li class="menu nav-item relative">
@@ -163,58 +247,4 @@
     </div>
 </template>
 
-<script lang="ts" setup>
-    import { ref, onMounted, computed, reactive, watch } from 'vue';
-    import appSetting from '@/app-setting';
-    import { useRoute } from 'vue-router';
-    import { useAppStore } from '@/stores/index';
-    import { Link } from '@inertiajs/vue3';
-    import { router } from '@inertiajs/vue3';
 
-    const showCustomizer = ref(false);
-    const store = useAppStore();   
-
-    const props = defineProps({
-        sections: {
-            type: Object,
-            default: () => ({}),
-        },
-    });
-
-    
-    onMounted(() => {
-        setActiveDropdown();
-    });
-
-    watch(route, (to, from, value) => {
-        setActiveDropdown();
-        router.get(
-            "sections",
-            {
-                preserveState: true,
-                replace: true,
-            }
-        );
-    });
-
-    const setActiveDropdown = () => {
-        const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
-        if (selector) {
-            selector.classList.add('active');
-            const all: any = document.querySelectorAll('ul.horizontal-menu .nav-link.active');
-            for (let i = 0; i < all.length; i++) {
-                all[0]?.classList.remove('active');
-            }
-            const ul: any = selector.closest('ul.sub-menu');
-            if (ul) {
-                let ele: any = ul.closest('li.menu').querySelectorAll('.nav-link');
-                if (ele) {
-                    ele = ele[0];
-                    setTimeout(() => {
-                        ele?.classList.add('active');
-                    });
-                }
-            }
-        }
-    };
-</script>

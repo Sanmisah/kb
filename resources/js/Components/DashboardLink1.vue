@@ -14,6 +14,9 @@
         sections: {
             type: Object,
         },
+        // articles: {
+        //     type: Object,
+        // }
     });    
     console.log(props.sections);
     onMounted(() => {
@@ -110,45 +113,10 @@
                     <ul class="sub-menu">    
                         <template v-for="(section, index) in this.$page.props.sections">                   
                         <li>
-                            <router-link to="/" class="nav-link">{{ section.section_name }}</router-link>
+                            <!-- <router-link to="/" class="nav-link">{{ section.section_name }}</router-link> -->
+                            <Link  :href="'/articles/' + section.section_name" class="nav-link">{{ section.section_name }}</Link>
                         </li>          
-                        </template>              
-                        <!-- <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Data sheets') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Videos') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('QA/QC Checklist ') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('HSE Documents') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Drawings & Sketches') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Codes') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Books') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Magazines/Journals/ArƟcles') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Research Papers') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Basic Design Principles') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Consumption Statements') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" class="nav-link">{{ $t('Manpower Usage Statements') }}</a>
-                        </li> -->
+                        </template> 
                     </ul>
                 </li>
                 <li class="menu nav-item relative">

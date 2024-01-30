@@ -249,13 +249,9 @@
         sections: {
             type: Object,
             default: () => ({}),
-        },
-        section: {
-            type: Object,
-            default: () => ({}),
-        }
+        },        
     });
-    console.log(props.section);
+    console.log(props.articles);
     const store = useAppStore();
 
     const defaultParams = ref({

@@ -246,10 +246,10 @@
             type: Array,
             default: () => ({}),
         },
-        // sections: {
-        //     type: Object,
-        //     default: () => ({}),
-        // },        
+        sections: {
+            type: Object,
+            default: () => ({}),
+        },        
     });
     const store = useAppStore();
 

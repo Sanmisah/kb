@@ -3,6 +3,7 @@
     import { useAppStore } from '@/stores/index';
     import { Link } from '@inertiajs/vue3';
     import { router } from '@inertiajs/vue3';
+    import { usePage } from '@inertiajs/vue3';
     const store = useAppStore();   
     const props = defineProps({
         canLogin: {
@@ -26,6 +27,12 @@
         setActiveDropdown(); 
     });
 
+    // const page = usePage();
+    // const sections = page.props.sections;
+    // const arrayFailed = Object.entries(sections).map((arr) => ({
+    //     fieldName: arr[0],
+    // }));
+    // console.log(arrayFailed);
     const setActiveDropdown = () => {
         const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
         if (selector) {
@@ -71,26 +78,12 @@
                             <span class="px-2">Dashboard</span>
                             
                         </div>
-                        <div class="right_arrow">
+                        <!-- <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                        </div>
-                    </Link>
-                    <ul class="sub-menu"> 
-                        <li>                          
-                            <Link href="#" class="nav-link">Sales</Link>
-                        </li>          
-                        <li>                          
-                            <Link href="#" class="nav-link">Analytics</Link>
-                        </li> 
-                        <template v-for="(section, index) in $page.props.sections">                   
-                            <li>
-                                <!-- <router-link to="/" class="nav-link">{{ section.section_name }}</router-link> -->
-                                <Link :href="'/articles/' + section.id" class="nav-link">{{ section.section_name }}</Link>
-                            </li>          
-                        </template> 
-                    </ul>
+                        </div> -->
+                    </Link>                    
                 </li>                
                 <li class="menu nav-item relative">
                     <Link href="#" class="nav-link">
@@ -127,8 +120,7 @@
                     <ul class="sub-menu">    
                         <template v-for="(section, index) in $page.props.sections">                   
                         <li>
-                            <!-- <router-link to="/" class="nav-link">{{ section.section_name }}</router-link> -->
-                            <Link :href="'/articles/' + section.id" class="nav-link">{{ section.section_name }}</Link>
+                            <a :href="'/articles/' + section.id" class="nav-link">{{ section.section_name }}</a>
                         </li>          
                         </template> 
                     </ul>
@@ -217,11 +209,11 @@
                             </svg>
                             <span class="px-2">Contact</span>
                         </div>
-                        <div class="right_arrow">
+                        <!-- <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                        </div>
+                        </div> -->
                     </Link>
                 </li>
             </ul>

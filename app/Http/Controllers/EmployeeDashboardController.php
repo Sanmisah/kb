@@ -78,27 +78,28 @@ class EmployeeDashboardController extends Controller
 
     public function article_list(Section $section)
     {
-        $articles = Article::with(['Section'])
-                            ->where('section_id', $section->id)
-                            ->orderBy('id', 'desc')->get();
-        // dd($articles);                    
-        return Inertia::render('Articles',[
-            'articles' => $articles,
-        ]);
-
-        // $articles = Article::filter(Request::only('search'))
-        //                     ->with(['Section'])
+        // $articles = Article::with(['Section'])
         //                     ->where('section_id', $section->id)
-        //                     ->orderBy('id', 'desc')
-        //                     ->paginate(5)
-        //                     ->withQueryString()
-        //                     ->through(fn ($article) => [
-        //                         'id' => $article->id,
-        //                         'topic' => $article->topic,                               
-        //                         'description' => $article->description]);
+        //                     ->orderBy('id', 'desc')->get();
+        // // dd($articles);                    
         // return Inertia::render('Articles',[
         //     'articles' => $articles,
         // ]);
+
+        return Inertia::render('Articles', [
+            'filters' => Request::all('search'),
+            'articles' => Article::where('section_id', $section->id)
+                ->with(['Section'])
+                ->orderBy('id', 'desc')
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($article) => [
+                    'id' => $article->id,
+                    'topic' => $article->topic,
+                    'description' => $article->description,                   
+                    'section_name' => @$article->section->section_name,
+                ]),
+        ]);
     }    
 
     public function sections()

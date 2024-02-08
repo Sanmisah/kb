@@ -1,4 +1,7 @@
 <script setup>
+
+import Search from "@/Components/SearchFilter.vue";
+import Pagination from "@/Components/Pagination.vue";
 import { watch } from "vue";
 import { ref , onMounted} from 'vue';
 import { router } from '@inertiajs/vue3';
@@ -14,13 +17,9 @@ const props = defineProps({
   filters: {
     type: Object,
     default: () => ({}),
-  }
+  },
 });
-console.table(props.sections);
-const tabMainChanged = (tabType) => {
-    tabMain.value = tabType;
-};
-const tabMain = ref('notice');
+const tabMain = ref('articles');
 let search = ref(props.filters.search);
 
 watch(search, (value) => {
@@ -61,9 +60,9 @@ watch(search, (value) => {
                 <div>
                     <table>
                         <tbody>
-                            <template v-for="(article, index) in articles">
+                            <template v-for="(article, index) in articles.data">
                                 <tr>
-                                    <a :href="'/article-detail/' + article.id">
+                                    <!-- <a :href="'/article-detail/' + article.id"> -->
                                     <td>
                                         <div
                                             class="group-hover:text-primary font-semibold text-base whitespace-nowrap">
@@ -79,17 +78,18 @@ watch(search, (value) => {
                                         <div>                                                           
                                             <a href="#"
                                                 class="text-center whitespace-nowrap badge badge-outline-primary rounded-full" >
-                                                {{ article.section.section_name }}
+                                                {{ article.section_name }}
                                             </a>
                                         </div>                                       
                                     </td>  
-                                    </a>                                  
+                                    <!-- </a>                                   -->
                                 </tr>
                             </template>
                         </tbody>
                     </table>
                 </div>
-            </div>            
+            </div>        
+            <Pagination :data="articles" />    
         </div>
     </Employee>
 </template>

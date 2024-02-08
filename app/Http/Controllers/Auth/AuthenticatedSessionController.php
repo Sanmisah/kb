@@ -60,11 +60,8 @@ class AuthenticatedSessionController extends Controller
         if($role == 'Employee'){
             $employee = Employee::find(auth()->user()->id);
             $sections = Section::where('department_id', $employee->department_id)->get();
-            // $articles = Article::with(['Section'])
-            //                 ->whereRelation('Section', 'department_id', $employee->department_id)
-            //                 ->orderBy('id', 'desc')->get();
             Inertia::share('sections', $sections);
-            print_r($sections); exit;
+            // print_r($sections); exit;
             return redirect()->intended(RouteServiceProvider::EMPLOYEE);
         }    
 

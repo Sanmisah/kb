@@ -90,7 +90,7 @@ const tabMain = ref('notice');
                 <div class="p-4 relative col-start-2 col-end-5">
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 ltr:mr-2 rtl:ml-2">
-                            <img :src="`/article.jpeg`" class="h-12 w-12 rounded-full object-cover" />
+                            <img :src="`/public/article.jpeg`" class="h-12 w-12 rounded-full object-cover" />
                         </div>
                         <div class="ltr:mr-2 rtl:ml-2 flex-1">
                             <div class="flex items-center">

@@ -32,8 +32,6 @@ class EmployeeDashboardController extends Controller
                                 'notice_date' => $notice->notice_date,
                                 'notice' => $notice->notice,
                                 'description' => $notice->description]);
-        // $media = Media::getMedia('attachment');
-        // dd($media);
         return Inertia::render('Employee-Dashboard',[
             'notices' => $notices,
         ]);
@@ -78,13 +76,34 @@ class EmployeeDashboardController extends Controller
         ]);
     }
 
+    public function article_list(Section $section)
+    {
+        $articles = Article::with(['Section'])
+                            ->where('section_id', $section->id)
+                            ->orderBy('id', 'desc')->get();
+        // dd($articles);                    
+        return Inertia::render('Articles',[
+            'articles' => $articles,
+        ]);
+
+        // $articles = Article::filter(Request::only('search'))
+        //                     ->with(['Section'])
+        //                     ->where('section_id', $section->id)
+        //                     ->orderBy('id', 'desc')
+        //                     ->paginate(5)
+        //                     ->withQueryString()
+        //                     ->through(fn ($article) => [
+        //                         'id' => $article->id,
+        //                         'topic' => $article->topic,                               
+        //                         'description' => $article->description]);
+        // return Inertia::render('Articles',[
+        //     'articles' => $articles,
+        // ]);
+    }    
+
     public function sections()
     {
-        $section = Section::orderBy('id', 'desc')->get();
-        // dd($section);
-        // return Inertia::render('/resources/js/Components/DashboardLink1.vue', [           
-        //     'section' => $section
-        // ]);
+        $section = Section::orderBy('id', 'desc')->get();     
         return Inertia::render('Components/DashboardLink1.vue', [           
             'section' => $section
         ]);

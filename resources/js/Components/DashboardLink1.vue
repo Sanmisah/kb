@@ -18,7 +18,6 @@
         //     type: Object,
         // }
     });    
-    console.log(props.sections);
     onMounted(() => {
         setActiveDropdown();
     });
@@ -69,7 +68,8 @@
                                 />
                             </svg>
 
-                            <span class="px-2">{{ $t('Dashboard') }}</span>
+                            <span class="px-2">Dashboard</span>
+                            
                         </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,9 +77,23 @@
                             </svg>
                         </div>
                     </Link>
+                    <ul class="sub-menu"> 
+                        <li>                          
+                            <Link href="#" class="nav-link">Sales</Link>
+                        </li>          
+                        <li>                          
+                            <Link href="#" class="nav-link">Analytics</Link>
+                        </li> 
+                        <template v-for="(section, index) in $page.props.sections">                   
+                            <li>
+                                <!-- <router-link to="/" class="nav-link">{{ section.section_name }}</router-link> -->
+                                <Link :href="'/articles/' + section.id" class="nav-link">{{ section.section_name }}</Link>
+                            </li>          
+                        </template> 
+                    </ul>
                 </li>                
                 <li class="menu nav-item relative">
-                    <Link :href="'/article'" class="nav-link">
+                    <Link href="#" class="nav-link">
                         <div class="flex items-center">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
                                 <path
@@ -102,7 +116,7 @@
                                     fill="currentColor"
                                 />
                             </svg>
-                            <span class="px-2">{{ $t('Knowledge Base') }}</span>
+                            <span class="px-2">Knowledge Base</span>
                         </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,10 +125,10 @@
                         </div>
                     </Link>
                     <ul class="sub-menu">    
-                        <template v-for="(section, index) in this.$page.props.sections">                   
+                        <template v-for="(section, index) in $page.props.sections">                   
                         <li>
                             <!-- <router-link to="/" class="nav-link">{{ section.section_name }}</router-link> -->
-                            <Link  :href="'/articles/' + section.section_name" class="nav-link">{{ section.section_name }}</Link>
+                            <Link :href="'/articles/' + section.id" class="nav-link">{{ section.section_name }}</Link>
                         </li>          
                         </template> 
                     </ul>
@@ -125,7 +139,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                             </svg>                              
-                            <span class="px-2">{{ $t('Manpower Training Module') }}</span>
+                            <span class="px-2">Manpower Training Module</span>
                         </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,7 +187,7 @@
                                     fill="currentColor"
                                 />
                             </svg>
-                            <span class="px-2">{{ $t('Induction') }}</span>
+                            <span class="px-2">Induction</span>
                         </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -201,7 +215,7 @@
                                     fill="currentColor"
                                 />
                             </svg>
-                            <span class="px-2">{{ $t('Contact') }}</span>
+                            <span class="px-2">Contact</span>
                         </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

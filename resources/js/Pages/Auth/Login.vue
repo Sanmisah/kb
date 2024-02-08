@@ -32,7 +32,7 @@ const submit = () => {
 <div class="flex min-h-screen">
     <div class="bg-gradient-to-t from-[#ff1361bf] to-[#44107A] w-1/2 min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4">
         <div class="w-full mx-auto mb-5">
-            <img src="/assets/images/auth-cover.svg" alt="coming_soon" class="lg:max-w-[370px] xl:max-w-[500px] mx-auto" />
+            <img src="/public/assets/images/auth-cover.svg" alt="coming_soon" class="lg:max-w-[370px] xl:max-w-[500px] mx-auto" />
         </div>
         <h3 class="text-3xl font-bold mb-4 text-center">Join the community of expert developers</h3>
         <p>It is easy to setup with great customer experience. Start your 7-day free trial</p>

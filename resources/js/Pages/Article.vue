@@ -246,12 +246,11 @@
             type: Array,
             default: () => ({}),
         },
-        sections: {
-            type: Object,
-            default: () => ({}),
-        },        
+        // sections: {
+        //     type: Object,
+        //     default: () => ({}),
+        // },        
     });
-    console.log(props.articles);
     const store = useAppStore();
 
     const defaultParams = ref({

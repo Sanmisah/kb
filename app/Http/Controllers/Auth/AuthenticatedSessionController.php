@@ -64,6 +64,7 @@ class AuthenticatedSessionController extends Controller
             //                 ->whereRelation('Section', 'department_id', $employee->department_id)
             //                 ->orderBy('id', 'desc')->get();
             Inertia::share('sections', $sections);
+            print_r($sections); exit;
             return redirect()->intended(RouteServiceProvider::EMPLOYEE);
         }    
 

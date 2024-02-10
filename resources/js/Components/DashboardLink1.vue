@@ -117,12 +117,53 @@
                             </svg>
                         </div>
                     </Link>
-                    <ul class="sub-menu">    
+                    <!-- <ul class="sub-menu">    
                         <template v-for="(section, index) in $page.props.sections">                   
                         <li>
                             <a :href="'/articles/' + section.id" class="nav-link">{{ section.section_name }}</a>
                         </li>          
                         </template> 
+                    </ul> -->
+                    <ul class="sub-menu">  
+                        <li>
+                            <a :href="'/articles/2'" class="nav-link">Drawings & Sketches</a>
+                        </li>
+                        <li>
+                            <a :href="'/articles/3'" class="nav-link">HSE Documents</a>
+                        </li> 
+                        <li>
+                            <a :href="'/articles/4'" class="nav-link">QA/QC Checklist</a>
+                        </li> 
+                        <li>
+                            <a :href="'/articles/8'" class="nav-link">Videos</a>
+                        </li> 
+                        <li>
+                            <a :href="'/articles/9'" class="nav-link">Method Statements</a>
+                        </li> 
+                        <li>
+                            <a :href="'/articles/10'" class="nav-link">Data sheets</a>
+                        </li> 
+                        <li>
+                            <a :href="'/articles/11'" class="nav-link">Codes</a>
+                        </li> 
+                        <li>
+                            <a :href="'/articles/12'" class="nav-link">Books</a>
+                        </li>
+                        <li>
+                            <a :href="'/articles/13'" class="nav-link">Magazines/Journals/Articles</a>
+                        </li>
+                        <li>
+                            <a :href="'/articles/14'" class="nav-link">Research Papers</a>
+                        </li>
+                        <li>
+                            <a :href="'/articles/15'" class="nav-link">Basic Design Principles</a>
+                        </li>
+                        <li>
+                            <a :href="'/articles/16'" class="nav-link">Consumption Statements</a>
+                        </li>
+                        <li>
+                            <a :href="'/articles/17'" class="nav-link">Manpower Usage Statements</a>
+                        </li>  
                     </ul>
                 </li>
                 <li class="menu nav-item relative">

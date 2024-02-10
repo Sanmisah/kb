@@ -116,7 +116,7 @@ const tabMain = ref('notice');
                         <div class="flex items-center  mt-6">
                            
                             <div class="ltr:ml-3 rtl:mr-3">
-                                <a v-if="file_1" :href="'/media/'+ file_1.id +'/'+ file_1.file_name" target="_blank">
+                                <a v-if="file_1" :href="'/public/media/'+ file_1.id +'/'+ file_1.file_name" target="_blank">
                                     <p class="flex items-center text-xs text-primary font-semibold">
                                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
                                         <path
@@ -137,7 +137,7 @@ const tabMain = ref('notice');
                                 </a>
                             </div>
                             <div class="ltr:ml-3 rtl:mr-3">
-                                <a v-if="file_2" :href="'/media/'+ file_2.id +'/'+ file_2.file_name" target="_blank">
+                                <a v-if="file_2" :href="'/public/media/'+ file_2.id +'/'+ file_2.file_name" target="_blank">
                                 <p class="flex items-center text-xs text-primary font-semibold">
                                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
                                             <path
@@ -158,7 +158,7 @@ const tabMain = ref('notice');
                             </a>
                             </div>
                             <div class="ltr:ml-3 rtl:mr-3">
-                                <a v-if="file_3" :href="'/media/'+ file_3.id +'/'+ file_3.file_name" target="_blank">
+                                <a v-if="file_3" :href="'/public/media/'+ file_3.id +'/'+ file_3.file_name" target="_blank">
                                         <p class="flex items-center text-xs text-primary font-semibold">
                                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
                                         <path

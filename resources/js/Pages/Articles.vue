@@ -62,7 +62,7 @@ watch(search, (value) => {
                         <tbody>
                             <template v-for="(article, index) in articles.data">
                                 <tr>
-                                    <!-- <a :href="'/article-detail/' + article.id"> -->
+                                    <a :href="'/article-detail/' + article.id">
                                     <td>
                                         <div
                                             class="group-hover:text-primary font-semibold text-base whitespace-nowrap">
@@ -82,7 +82,7 @@ watch(search, (value) => {
                                             </a>
                                         </div>                                       
                                     </td>  
-                                    <!-- </a>                                   -->
+                                    </a>                                  
                                 </tr>
                             </template>
                         </tbody>
